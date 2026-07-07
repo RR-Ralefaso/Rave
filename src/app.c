@@ -2,33 +2,24 @@
 #include <stdlib.h>
 #include "structures.h"
 
-
 int main(int argc, char const *argv[])
 {
-    //idk what the project is suposed to be 
-    return 0;
-}
+    // Capture the return value so you don't lose your root node!
+    TreeNode *root = Init(InitStack(1)); 
 
-TreeNode *Init(void *data)
-{
-    //  Allocate memory for the new node
-    TreeNode *newNode = (TreeNode *)malloc(sizeof(TreeNode));
-
-    // Check if the memory allocation was successful
-    if (newNode == NULL)
-    {
-        printf("Error: Memory allocation failed.\n");
-        return NULL;
+    if (root == NULL || root->data == NULL) {
+        printf("Failed to initialize the tree structure.\n");
+        return EXIT_FAILURE;
     }
 
-    // Assign the data and initialize children to NULL
-    newNode->data = data;
-    newNode->left = NULL;
-    newNode->right = NULL;
+    // "Initial commit" verification
+    printf("Tree root initialized successfully!\n");
+    printf("Embedded stack capacity: %d\n", root->data->capacity);
 
-    // Return the newly created node
-    return newNode;
+    // --- Clean up memory before exiting ---
+    free(root->data->arr); // Free the array inside the stack
+    free(root->data);      // Free the stack structure itself
+    free(root);           // Free the tree node
+
+    return EXIT_SUCCESS;
 }
-
-
-
