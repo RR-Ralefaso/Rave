@@ -5,7 +5,7 @@
 int main(int argc, char const *argv[])
 {
     // Capture the return value so you don't lose your root node!
-    TreeNode *root = Init(InitStack(1)); 
+    TreeNode *root = Init(InitStack(0)); //initalising the version control system
 
     if (root == NULL || root->data == NULL) {
         printf("Failed to initialize the tree structure.\n");
