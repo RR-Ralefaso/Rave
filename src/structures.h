@@ -4,27 +4,27 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-// 1. Fixed TreeNode typedef
-typedef struct TreeNode
-{
-    void *data;             // pointer to any data type
-    struct TreeNode *left;  // left child
-    struct TreeNode *right; // right child
-} TreeNode;                 
-// 2. Fixed BranchStack typedef
+// branch
 typedef struct BranchStack
 {
     int *arr;     // pointer to dynamic array
     int top;      // index of the top element
     int capacity; // current maximum size
-} BranchStack;    
+} BranchStack;
+
+//  TreeNode
+typedef struct TreeNode
+{
+    BranchStack *data;             // pointer to any data type
+    struct TreeNode *left;  // left child
+    struct TreeNode *right; // right child
+} TreeNode;                 
 
 
 // --- Function Prototypes ---
 
 // Tree Functions
-TreeNode *Init(void *data);
-
+TreeNode *Init(BranchStack *stack);
 // Stack Functions 
 BranchStack *InitStack(int capacity);
 void Push(BranchStack *stack, int value);
