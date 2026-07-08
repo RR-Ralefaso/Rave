@@ -15,4 +15,8 @@ void TraversePreOrder(TreeNode *root);
 void TraverseInOrder(TreeNode *root);
 void TraversePostOrder(TreeNode *root);
 
+
+// --finding  a certain node --
+TreeNode *Find(TreeNode *root, TreeNode *target);
+
 #endif
