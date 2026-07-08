@@ -46,8 +46,8 @@ void TraversePostOrder(TreeNode *root)
     if (root == NULL)
         return;
 
-    traversePostorder(root->left);
-    traversePostorder(root->right);
+    TraversePostOrder(root->left);
+    TraversePostOrder(root->right);
 
     // Visit the root last (e.g., Useful for freeing memory)
     printf("Finished processing children of Node %d\n", root->identity);
@@ -61,5 +61,5 @@ bool found(TreeNode *want , TreeNode *root){
         return false;
     }
 
-    
+    return false;
 }
