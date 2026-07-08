@@ -17,6 +17,7 @@ TreeNode *Init(BranchStack *stack)
     newNode->data = stack; 
     newNode->left = NULL;
     newNode->right = NULL;
+    newNode->identity = 0; //identity of the node
 
     // 4. Return the newly created node
     return newNode;
@@ -41,6 +42,7 @@ BranchStack *InitStack(int capacity){
 
     stack->capacity = capacity;
     stack->top = -1;
+    stack->identity = 0; //the identity of the stack
 
     return stack;
 }
@@ -71,4 +73,21 @@ int IsEmpty(BranchStack *stack)
 {
     // If top is -1, the stack is empty (returns 1 for true, 0 for false)
     return (stack->top == -1);
+}
+
+
+
+//--Push
+void push(BranchStack *stack, int value)
+{
+    // if the stack is full
+    if (stack->top >= stack->capacity - 1)
+    {
+        printf("Stack Overflow! Cannot push %d\n", value);
+        return;
+    }
+
+    //Increment top and insert the integer
+    stack->top++;
+    stack->arr[stack->top] = value;
 }
