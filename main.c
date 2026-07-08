@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "src/structures.h"
 
-
+/*DO NOT RUN IT AS IT IS INCOMPLETE*/
 
 int main(int argc, char const *argv[])
 {
