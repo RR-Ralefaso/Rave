@@ -18,3 +18,19 @@
 
 
 
+### to run (so far until i update it)
+```
+->assumming you in the Rave folder
+
+1) running test :
+        mkdir build
+        gcc test/maintest.c src/structures.c src/StructureTraversal.c -o -g build/testmain
+        ./build/testmain 
+
+2) Running main:
+        mkdir build
+        gcc main.c src/structures.c src/StructureTraversal.c -o -g main
+        ./main
+```
+
+
