@@ -59,10 +59,12 @@ void TraversePostOrder(TreeNode *root)
 
 TreeNode *Find(TreeNode *root, TreeNode *target){
     if (root==NULL){
+        printf("target branch does not exist");
         return NULL;
     }
 
     if(root->identity  == target->identity){
+        printf("target branch found");
         return root;
     }
 
