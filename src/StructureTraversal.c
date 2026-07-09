@@ -21,9 +21,9 @@ void TraverseInOrder(TreeNode *root){
     // Visit the current node (Accessing the BranchStack data)
     if(root->data!=NULL){
         printf(
-            "Node ID: %d\nstack ID : %d\n Stack Top Index : %d\n",
+            "Node ID: %s\nstack ID : %d\n Stack Top Index : %d\n",
             root->identity, root->data->identity, root->data->top);
-    }else("Node ID: %d, Stack is NULL\n", root->identity);
+    }else("Node ID: %s, Stack is NULL\n", root->identity);
 
     TraverseInOrder(root->right);
 }
@@ -34,7 +34,7 @@ void TraversePreOrder(TreeNode *root){
         return;
 
     if (root->data != NULL)
-        printf("Visiting Node %d (Stack ID: %d)\n", root->identity, root->data->identity);
+        printf("Visiting Node %s (Stack ID: %d)\n", root->identity, root->data->identity);
 
     TraversePreOrder(root->left);
     TraversePreOrder(root->right);
@@ -50,21 +50,21 @@ void TraversePostOrder(TreeNode *root)
     TraversePostOrder(root->right);
 
     // Visit the root last (e.g., Useful for freeing memory)
-    printf("Finished processing children of Node %d\n", root->identity);
+    printf("Finished processing children of Node %s\n", root->identity);
 }
 
 
 //---------------finding a specifc branch (node)----
 
 
-TreeNode *Find(TreeNode *root, TreeNode *target){
+TreeNode *Find(TreeNode *root, char *target){ //takes in a treenode and a string 
     if (root==NULL){
-        printf("target branch does not exist");
+        printf("target branch does not exist\n");
         return NULL;
     }
 
-    if(root->identity  == target->identity){
-        printf("target branch found");
+    if(root->identity  == target){
+        printf("target branch found\n");
         return root;
     }
 
