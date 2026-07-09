@@ -177,7 +177,7 @@ TreeNode *CreateChild(TreeNode *root, char *childname)
 
     // string emptiness check using childname[0]
     if (childname[0] == '\0'){
-        printf("Branch not named");
+        printf(" Error : Tried Creating a nameless Branch\n");
         return NULL;
     }
 
