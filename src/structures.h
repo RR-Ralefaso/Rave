@@ -44,7 +44,5 @@ int IsEmpty(BranchStack *stack);
 //cleans up memory
 void FreeNode(TreeNode *node);
 
-//adding a childnode
-TreeNode *CreateChild(TreeNode *root, char *childname);
 
 #endif
