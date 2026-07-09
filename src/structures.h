@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+
 // branch
 typedef struct BranchStack
 {
@@ -19,7 +20,7 @@ typedef struct TreeNode
     BranchStack *data;             // pointer to any data type
     struct TreeNode *left;  // left child
     struct TreeNode *right; // right child
-    int identity; //identity
+    char* identity; //identity
 } TreeNode;
 
 
@@ -28,11 +29,12 @@ typedef struct TreeNode
 // --- Function Prototypes ---
 
 // Tree Functions
-TreeNode *Init(BranchStack *stack);
+TreeNode *Init(BranchStack *stack,char* name);
 // Stack Functions 
 BranchStack *InitStack(int capacity);
 void Push(BranchStack *stack, BranchStack* value);
 int Pop(BranchStack *stack);
 int IsEmpty(BranchStack *stack);
+void FreeNode(TreeNode *node);
 
 #endif

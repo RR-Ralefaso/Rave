@@ -24,7 +24,7 @@
 
 1) running test :
         mkdir build
-        gcc test/maintest.c src/structures.c src/StructureTraversal.c -o -g build/testmain
+        gcc test/maintest.c src/structures.c src/StructureTraversal.c -o build/testmain
         ./build/testmain 
 
 2) Running main:

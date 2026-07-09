@@ -1,26 +1,46 @@
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h> 
 #include "structures.h"
 
-TreeNode *Init(BranchStack *stack)
+TreeNode *Init(BranchStack *stack, char *name)
 {
-    // 1. Allocate memory for the new node
+    //Allocate memory for the new node
     TreeNode *newNode = (TreeNode *)malloc(sizeof(TreeNode));
 
-    // 2. Check if memory allocation was successful
-    if (newNode == NULL)
-    {
+    // Check if memory allocation was successful
+    if (newNode == NULL){
         printf("Error: Memory allocation failed for TreeNode.\n");
         return NULL;
     }
 
-    newNode->data = stack; 
+    newNode->data = stack;
     newNode->left = NULL;
     newNode->right = NULL;
-    newNode->identity = 0; //identity of the node
 
-    // 4. Return the newly created node
+    //Allocate separate memory for the string and copy it (Deep Copy)
+    if (name != NULL){
+        newNode->identity = (char *)malloc(strlen(name) + 1);
+        if (newNode->identity != NULL){
+            strcpy(newNode->identity, name); // Safely duplicate the string data
+        }
+    }
+    else{
+        newNode->identity = NULL;
+    }
+    //Return the newly created node
     return newNode;
+}
+
+
+// Memory cleanup function to accompany your Init function
+void FreeNode(TreeNode *node)
+{
+    if (node != NULL)
+    {
+        free(node->identity); // Free the allocated string memory first
+        free(node);           // Then free the node structure itself
+    }
 }
 
 BranchStack *InitStack(int capacity){
