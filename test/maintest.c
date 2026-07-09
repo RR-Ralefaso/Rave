@@ -14,7 +14,7 @@ int main(int argc, char const *argv[])
     // ---CODE ---
     TreeNode *root = Init(InitStack(0), "master");
 
-    CreateChild(root, "");
+    CreateChild(root, ""); //testing what itll be if null
 
     printf("--- Traversal Output ---\n");
     TraverseInOrder(root);
