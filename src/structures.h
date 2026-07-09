@@ -32,9 +32,19 @@ typedef struct TreeNode
 TreeNode *Init(BranchStack *stack,char* name);
 // Stack Functions 
 BranchStack *InitStack(int capacity);
+//pushes onto the stack
 void Push(BranchStack *stack, BranchStack* value);
+
+//pops top of stack
 int Pop(BranchStack *stack);
+
+// If top is -1, the stack is empty (returns 1 for true, 0 for false)
 int IsEmpty(BranchStack *stack);
+
+//cleans up memory
 void FreeNode(TreeNode *node);
+
+//adding a childnode
+TreeNode *CreateChild(TreeNode *root, char *childname);
 
 #endif
