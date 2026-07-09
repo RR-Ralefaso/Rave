@@ -8,16 +8,19 @@
 
 int main(int argc, char const *argv[])
 {
-    TreeNode *node = Init(InitStack(0)); //inititating
+    TreeNode *root = Init(InitStack(0),"master"); //inititating
+    //trying to find a branch that doesnt exist
+    TreeNode *childNE = Init(InitStack(0), "child"); //child that doesnt exist
+    Find(root,"child"); // should return false as branch does not exist
 
     //checking if traversing works
-    TraverseInOrder(node);
+    TraverseInOrder(root);
 
 
     //cleaning up
-    free(node->data->arr);
-    free(node->data);
-    free(node);
+    free(root->data->arr);
+    free(root->data);
+    free(root);
     return 0;
 }
 
