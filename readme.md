@@ -24,12 +24,12 @@
 
 1) running test :
         mkdir build
-        gcc test/maintest.c src/structures.c src/StructureTraversal.c -o build/testmain
+        gcc test/maintest.c src/structures/structures.c src/structures/structure_traversal/StructureTraversal.c src/branch/branches.c -o build/testmain
         ./build/testmain 
 
 2) Running main:
         mkdir build
-        gcc main.c src/structures.c src/StructureTraversal.c -o -g main
+        gcc main.c src/structures/structures.c src/structures/structure_traversal/StructureTraversal.c src/branch/branches.c -o -g main
         ./main
 ```
 
