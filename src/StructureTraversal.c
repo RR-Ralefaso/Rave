@@ -74,3 +74,19 @@ TreeNode *Find(TreeNode *root, char *target){ //takes in a treenode and a string
 
     return Find(root->right, target);
 }
+
+//checks if a node has a child
+bool HasChild(TreeNode *root)
+{
+    //checks if the root exists if not it should return a warning and false
+    if (root==NULL)
+    {
+        printf("Error : Parent Node doesnt exist");
+        return false;
+    }
+
+    // if root has a left or right child it returns true
+    if ((root->right != NULL) || (root->left != NULL))
+        return true;
+
+}

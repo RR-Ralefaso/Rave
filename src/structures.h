@@ -8,7 +8,7 @@
 // branch
 typedef struct BranchStack
 {
-    int *arr;     // pointer to dynamic array
+    TreeNode *arr; // pointer to dynamic array --check
     int top;      // index of the top element
     int capacity; // current maximum size
     int identity;  // the identity 
@@ -26,6 +26,7 @@ typedef struct TreeNode
 
 
 
+
 // --- Function Prototypes ---
 
 // Tree Functions
@@ -36,7 +37,7 @@ BranchStack *InitStack(int capacity);
 void Push(BranchStack *stack, BranchStack* value);
 
 //pops top of stack
-int Pop(BranchStack *stack);
+TreeNode *Pop(BranchStack *stack);
 
 // If top is -1, the stack is empty (returns 1 for true, 0 for false)
 int IsEmpty(BranchStack *stack);

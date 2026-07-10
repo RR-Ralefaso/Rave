@@ -82,7 +82,7 @@ BranchStack *InitStack(int capacity){
         return NULL;
     }
 
-    stack->arr = (int *)malloc(capacity * sizeof(int));
+    stack->arr = (TreeNode *)malloc(capacity * sizeof(TreeNode));
     if (stack->arr == NULL){
 
      printf("Error : memory Allocation failed for stack array\n");
@@ -97,24 +97,26 @@ BranchStack *InitStack(int capacity){
     return stack;
 }
 
-int Pop(BranchStack *stack)
+// TODO : correct pop
+
+TreeNode *Pop(BranchStack *stack)
 {
     // hecks for Stack Underflow (is the stack empty?)
     if (IsEmpty(stack))
     {
         printf("Error: Stack Underflow! Cannot pop from an empty stack.\n");
         // Return a  value (like -1) to show failure.
-        return -1;
+        return NULL;
     }
 
     // Grab the value at the top of the stack
-    int poppedValue = stack->arr[stack->top];
+    TreeNode poppedValue = stack->arr[stack->top];
 
     //Move the top index down by one
     stack->top--;
 
     //Return the value
-    return poppedValue;
+    return &poppedValue; //retuns the adress of popped value
 }
 
 
@@ -125,19 +127,18 @@ int IsEmpty(BranchStack *stack)
     return (stack->top == -1);
 }
 
-
-
+// TODO : correct pop
 //--Push
-void push(BranchStack *stack, int value)
+void push(BranchStack *stack, TreeNode* value)
 {
     // if the stack is full
     if (stack->top >= stack->capacity - 1)
     {
-        printf("Stack Overflow! Cannot push %d\n", value);
-        return;
+        printf("Stack Overflow! Cannot push \n", value); //check
+        return ;
     }
 
     //Increment top and insert the integer
     stack->top++;
-    stack->arr[stack->top] = value;
+    stack->arr[stack->top] = *value; //check
 }

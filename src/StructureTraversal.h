@@ -1,14 +1,11 @@
 #ifndef STRUCUTURETRAVERSAL_H
 #define STRUCUTURETRAVERSAL_H
 #include "structures.h"
+#include "stdbool.h"
 
 
-
-
-
-
-
-
+//--checking if a node has children
+bool HasChild(TreeNode *root);
 
 // --prototype functions--
 void TraversePreOrder(TreeNode *root);
