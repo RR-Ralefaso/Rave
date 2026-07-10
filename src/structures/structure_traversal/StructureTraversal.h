@@ -1,6 +1,6 @@
 #ifndef STRUCUTURETRAVERSAL_H
 #define STRUCUTURETRAVERSAL_H
-#include "structures.h"
+#include "../structures.h"
 #include "stdbool.h"
 
 

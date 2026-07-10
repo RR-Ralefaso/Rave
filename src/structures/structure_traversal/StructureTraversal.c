@@ -1,7 +1,7 @@
 //used to travers the structures created
 #include <stdlib.h>
 #include <stdio.h>
-#include "structures.h"
+#include "../structures.h"
 #include "StructureTraversal.h"
 #include <stdbool.h>
 
