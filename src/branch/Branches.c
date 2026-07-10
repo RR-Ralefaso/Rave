@@ -123,7 +123,7 @@ TreeNode *CreateBranchBasedOfRoot(TreeNode *root, char *branchbeingcreated)
         // Lineage condition: Parallel or historical branches already exist on this root.
         // To preserve a clear developmental hierarchy, any newly forced root-dependent branch
         // must drop down and attach as an offspring to the established leftmost child's lineage.
-        printf("Root already has children...Appending branch to the left child's lineage.\n");
+        printf("Root already has children...Appending %s to the left child's lineage.\n",branchbeingcreated);
 
         // Execution handoff: We pass the root's left child into CreateChild. This guarantees
         // the node is inserted at the bottom of the leftmost branch's chain, while safely
