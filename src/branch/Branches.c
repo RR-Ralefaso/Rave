@@ -82,8 +82,8 @@ TreeNode *CreateChild(TreeNode *root, char *childname)
 
 //--MANAGING CREATING BRANCH BASED OF THE ROOT
 
-TreeNode * CreateBranchBasedOfRoot(TreeNode *root , char *branchbeingcreated){
-
+TreeNode * CreateBranchBasedOfRoot(TreeNode *root , char *branchbeingcreated)
+{
     //checks if the parent node exists
     if(root==NULL){
         printf("Error : VSC system has not been initialised\n");
@@ -94,11 +94,14 @@ TreeNode * CreateBranchBasedOfRoot(TreeNode *root , char *branchbeingcreated){
     {
         //if no child itll create it as a child branch 
         case 0 :
+            printf("created branch\n");
             return CreateChild(root, branchbeingcreated);
             break;
         case 1 :
+            //TODO : complete logic
+            printf("TODO : create a branch if it has a child logic not created\n");
             break;
-
     }
 
+    return NULL; // using as place holder
 }

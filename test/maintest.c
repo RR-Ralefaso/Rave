@@ -1,8 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h> 
-#include "../src/structures.h"
-#include "../src/StructureTraversal.h"
+#include "../src/structures/structures.h"
+#include "../src/structures/structure_traversal/StructureTraversal.h"
+#include "../src/branch/Branches.h"
 
 int main(int argc, char const *argv[])
 {
@@ -13,8 +14,10 @@ int main(int argc, char const *argv[])
 
     // ---CODE ---
     TreeNode *root = Init(InitStack(0), "master");
+    
 
-    CreateChild(root, ""); //testing what itll be if null
+    CreateChild(root, "stan"); //testing creating child
+    CreateBranchBasedOfRoot(root, "childtest"); //testing 
 
     printf("--- Traversal Output ---\n");
     TraverseInOrder(root);
