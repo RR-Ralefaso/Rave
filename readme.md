@@ -34,3 +34,9 @@
 ```
 
 
+#### personal notes
+
+        [] work on naming logic for child nodes
+        [] rethink the logic behind child nodes
+        [] think about how one could create a child of a commit(stack)
+
