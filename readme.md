@@ -66,6 +66,8 @@ The system tracks repository ancestry using a path-based hierarchy (separated by
     [x] work on naming logic for child nodes
     [] rethink the logic behind child nodes
     [] think about how one could create a child of a commit(stack)
+    [] work on ensuring that names are unique so we can use em for commit identities eg master1  with master being the branch and 1 being the first commit
+
 
 ```
 
