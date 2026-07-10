@@ -14,62 +14,76 @@
 
 TreeNode *CreateChild(TreeNode *root, char *childname)
 {
-    // Ensure the parent root exists
+    // Check if the parent node exists
     if (root == NULL)
     {
         printf("Error: The VCS hasn't been initialized\n");
         return NULL;
     }
 
-    // Safety Check: Handle NULL or empty string inputs first
+    // Check if the input name is valid
     if (childname == NULL || childname[0] == '\0')
     {
         printf("Error: Tried Creating a nameless Branch\n");
         return NULL;
     }
 
-    // Initialize the new child node
+    // Allocate and initialize the new child structure
     TreeNode *child = Init(InitStack(0), childname);
     if (child == NULL)
         return NULL;
 
-    // Handle Identity/Naming Logic Safely using the main root's name
+    // Get parent identity string or default to empty string
     char *parent_id = root->identity ? root->identity : "";
 
-    // Clear any memory allocated for identity inside Init to prevent a leak
+    // Free the temporary identity string allocated by Init to prevent memory leak
     if (child->identity != NULL)
     {
         free(child->identity);
         child->identity = NULL;
     }
 
-    // Name format: childname_rootnameCHILD
-    int total_len = strlen(childname) + 1 + strlen(parent_id) + strlen("CHILD") + 1;
-    child->identity = (char *)malloc(total_len);
-    if (child->identity == NULL)
+    int total_len;
+    // Generate hierarchical name path if parent identity exists
+    if (strlen(parent_id) > 0)
     {
-        return NULL;
+        // Compute memory size: parent string + '/' slash + child string + null terminator
+        total_len = strlen(parent_id) + 1 + strlen(childname) + 1;
+        child->identity = (char *)malloc(total_len);
+        if (child->identity == NULL)
+        {
+            return NULL;
+        }
+        // Format string into parent/child structure
+        snprintf(child->identity, total_len, "%s/%s", parent_id, childname);
+    }
+    else
+    {
+        // Direct allocation if parent name is empty
+        total_len = strlen(childname) + 1;
+        child->identity = (char *)malloc(total_len);
+        if (child->identity == NULL)
+        {
+            return NULL;
+        }
+        snprintf(child->identity, total_len, "%s", childname);
     }
 
-    strcpy(child->identity, childname);
-    strcat(child->identity, "_");
-    strcat(child->identity, parent_id);
-    strcat(child->identity, "CHILD");
-
-    // Insert into the Tree (Left-Child, Right-Sibling approach)
+    // Insert as left child if parent has no children yet
     if (root->left == NULL)
     {
         root->left = child;
         return child;
     }
 
-    // Navigate through right siblings to find the end of the children list
+    // Traverse the sibling chain to find the last child
     TreeNode *current = root->left;
     while (current->right != NULL)
     {
         current = current->right;
     }
 
+    // Attach new child to the end of the sibling chain
     current->right = child;
     return child;
 }
@@ -109,7 +123,7 @@ TreeNode *CreateBranchBasedOfRoot(TreeNode *root, char *branchbeingcreated)
         // Lineage condition: Parallel or historical branches already exist on this root.
         // To preserve a clear developmental hierarchy, any newly forced root-dependent branch
         // must drop down and attach as an offspring to the established leftmost child's lineage.
-        printf("Root already has children. Appending branch to the left child's lineage.\n");
+        printf("Root already has children...Appending branch to the left child's lineage.\n");
 
         // Execution handoff: We pass the root's left child into CreateChild. This guarantees
         // the node is inserted at the bottom of the leftmost branch's chain, while safely
