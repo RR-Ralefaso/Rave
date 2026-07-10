@@ -47,7 +47,6 @@ Node *Pop(BranchStack *stack);
 int IsEmpty(BranchStack *stack);
 
 //cleans up memory
-void FreeNode(TreeNode *node);
-
+void FreeTree(TreeNode *root);
 
 #endif

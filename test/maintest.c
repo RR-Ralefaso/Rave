@@ -17,13 +17,13 @@ int main(int argc, char const *argv[])
     
 
     CreateChild(root, "stan"); //testing creating child
-    CreateBranchBasedOfRoot(root, "childtest"); //testing 
+    CreateBranchBasedOfRoot(root, "childtest"); //testing if created child as left most 
 
     printf("--- Traversal Output ---\n");
     TraverseInOrder(root);
     printf("------------------------\n");
 
-    FreeNode(root);
+    FreeTree(root);
     // -------------------------
 
     end = clock();

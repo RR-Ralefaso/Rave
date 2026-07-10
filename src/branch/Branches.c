@@ -76,6 +76,15 @@ TreeNode *CreateChild(TreeNode *root, char *childname)
 
 //-- MANAGING CREATING BRANCH BASED OFF THE ROOT
 
+/**
+ * @brief Creates a new branch based on the root node's positioning.
+ * * @note String Naming Convention:
+ * Newly generated branches follow a strict suffix-based concatenation format:
+ * Format: [childname]_[rootname]CHILD
+ * * Example:
+ * - Given a root named "main" and a new branch named "feature",
+ * the resulting identifier will be saved as: "feature_mainCHILD"
+ */
 TreeNode *CreateBranchBasedOfRoot(TreeNode *root, char *branchbeingcreated)
 {
     // Sanity check to protect repository state. If the pointer to the root is completely
