@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <StructureTraversal.h>
-#include <Branches.h>
+#include "../structures/structure_traversal/StructureTraversal.h"
+#include "Branches.h"
 /*
  - adds a left child fist if no children exist for the root node
  - if a chld exists it addes it to the right

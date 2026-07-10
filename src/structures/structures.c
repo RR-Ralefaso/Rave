@@ -142,3 +142,4 @@ void push(BranchStack *stack, Node* value)
     stack->top++;
     stack->arr[stack->top] = *value; //check
 }
+
