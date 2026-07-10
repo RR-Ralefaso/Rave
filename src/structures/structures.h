@@ -4,6 +4,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+// linked list
+typedef struct Node
+{
+    void *data; // Pointer to generic data
+    struct Node *next;
+} Node;
 
 // branch
 typedef struct BranchStack
@@ -23,12 +29,7 @@ typedef struct TreeNode
     char* identity; //identity
 } TreeNode;
 
-//linked list
-typedef struct Node
-{
-    void *data; // Pointer to generic data
-    struct Node *next;
-} Node;
+
 
 // --- Function Prototypes ---
 

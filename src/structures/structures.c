@@ -101,24 +101,23 @@ BranchStack *InitStack(int capacity){
 
 Node *Pop(BranchStack *stack)
 {
-    // hecks for Stack Underflow (is the stack empty?)
+    // Checks for Stack Underflow (is the stack empty?)
     if (IsEmpty(stack))
     {
         printf("Error: Stack Underflow! Cannot pop from an empty stack.\n");
-        // Return a  value (like -1) to show failure.
+        // Return NULL to show failure (since the return type is a pointer)
         return NULL;
     }
 
-    // Grab the value at the top of the stack
-    Node  poppedValue = stack->arr[stack->top];
+    // Grab the ADDRESS of the Node at the top of the stack
+    Node *poppedValue = &(stack->arr[stack->top]);
 
-    //Move the top index down by one
+    // Move the top index down by one
     stack->top--;
 
-    //Return the value
-    return &poppedValue; //retuns the adress of popped value
+    // Return the pointer to the node
+    return poppedValue;
 }
-
 
 //--isempty 
 int IsEmpty(BranchStack *stack)
@@ -134,7 +133,7 @@ void push(BranchStack *stack, Node* value)
     // if the stack is full
     if (stack->top >= stack->capacity - 1)
     {
-        printf("Stack Overflow! Cannot push \n", value); //check
+        printf("Stack Overflow! Cannot push \n"); //check
         return ;
     }
 

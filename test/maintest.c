@@ -3,7 +3,7 @@
 #include <time.h> 
 #include "../src/structures/structures.h"
 #include "../src/structures/structure_traversal/StructureTraversal.h"
-#include "../src/branch/Branches.h"
+#include "../src/branch/branches.h"
 
 int main(int argc, char const *argv[])
 {
@@ -23,9 +23,7 @@ int main(int argc, char const *argv[])
     TraverseInOrder(root);
     printf("------------------------\n");
 
-    free(root->data->arr);
-    free(root->data);
-    free(root);
+    FreeNode(root);
     // -------------------------
 
     end = clock();
