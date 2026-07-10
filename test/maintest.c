@@ -30,7 +30,10 @@ int main(int argc, char const *argv[])
     //checking if i can create another child for master
     CreateChild(root, "child3");
 
+    
     printf("Actual Tree Traversal:\n");
+
+
     TraversePreOrder(root);
 
     // Free allocated memory

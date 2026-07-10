@@ -14,7 +14,6 @@
 
 TreeNode *CreateChild(TreeNode *root, char *childname)
 {
-    // Check if the parent node exists
     if (root == NULL)
     {
         printf("Error: The VCS hasn't been initialized\n");

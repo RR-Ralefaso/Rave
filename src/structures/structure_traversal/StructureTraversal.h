@@ -14,6 +14,6 @@ void TraversePostOrder(TreeNode *root);
 
 
 // --finding  a certain node based of its name--
-TreeNode *Find(TreeNode *root, char *target);
+bool Find(TreeNode *root, char *target);
 
 #endif

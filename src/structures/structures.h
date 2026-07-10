@@ -2,7 +2,6 @@
 #define STRUCTURES_H
 
 #include <stdlib.h>
-#include <stdio.h>
 
 // linked list
 typedef struct Node

@@ -57,20 +57,19 @@ void TraversePostOrder(TreeNode *root)
 //---------------finding a specifc branch (node)----
 
 
-TreeNode *Find(TreeNode *root, char *target){ //takes in a treenode and a string 
+bool Find(TreeNode *root, char *target){ //takes in a treenode and a string 
     if (root==NULL){
         printf("target branch does not exist\n");
-        return NULL;
+        return false;
     }
 
     if(root->identity  == target){
         printf("target branch found\n");
-        return root;
+        return true;
     }
-
-    TreeNode *FoundInLeft = Find(root->left, target);
-    if (FoundInLeft != NULL)
-        return FoundInLeft;
+    //returns 1 if found and 0 ig not
+    if ((Find(root->left, target)) != 0)
+        return true;
 
     return Find(root->right, target);
 }
