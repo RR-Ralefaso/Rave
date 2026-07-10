@@ -26,6 +26,7 @@ int main(int argc, char const *argv[])
 
     // Create a grandchild under stan (using the correct, non-overwritten pointer)
     CreateChild(root, "Based_of_root");
+    CreateChild(childL1, "childL1test"); //creating a child for childL1
 
     printf("Actual Tree Traversal:\n");
     TraversePreOrder(root);
