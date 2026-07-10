@@ -16,9 +16,35 @@
  - allow others to add their own features theyd like
  - to improve my grasp of c and cpp
 
+## Branch & Node Naming Convention
+The system tracks repository ancestry using a path-based hierarchy (separated by `/`). This cleanly maps the exact genealogy of your VCS layout without string inflation or memory bloat:
 
+- **Root Branch:** `master`
+- **Sub-Branch:** `master/stan`
+- **Nested Branch/Child:** `master/stan/stanmanson`
+
+```text
+[ root ] 
+  │ 
+  └── Identity: "master"
+        │
+        ├── (Left Child Pointer)
+        │     ▼
+        │   [ stan ] ───(Right Sibling Pointer)───► [ childtest ]
+        │     │                                       │
+        │     │                                       └── Identity: "master/childtest"
+        │     ├── Identity: "master/stan"
+        │     │
+        │     └── (Left Child Pointer)
+        │           ▼
+        │         [ stanmanson ]
+        │           │
+        │           └── Identity: "master/stan/stanmanson"
+
+```
 
 ### to run (so far until i update it)
+
 ```
 ->assumming you in the Rave folder
 
@@ -31,12 +57,16 @@
         mkdir build
         gcc main.c src/structures/structures.c src/structures/structure_traversal/StructureTraversal.c src/branch/branches.c -o -g main
         ./main
-```
 
+```
 
 #### personal notes
 
-        [] work on naming logic for child nodes
-        [] rethink the logic behind child nodes
-        [] think about how one could create a child of a commit(stack)
+```
+    [x] work on naming logic for child nodes
+    [] rethink the logic behind child nodes
+    [] think about how one could create a child of a commit(stack)
+
+```
+
 

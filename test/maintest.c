@@ -7,58 +7,35 @@
 
 int main(int argc, char const *argv[])
 {
-    // Track execution time
     clock_t start, end;
     start = clock();
 
-    printf("==================================================\n");
-    printf("         VCS TREE STRUCTURE VERIFICATION          \n");
-    printf("==================================================\n\n");
-
-    // Initialize Root
-    printf("Initializing 'master' root...\n");
+    // Initialize root node
     TreeNode *root = Init(InitStack(0), "master");
-    if (!root)
+    if (root == NULL)
     {
-        printf("FAIL: Root initialization failed.\n");
+        printf("Error: Root initialization failed.\n");
         return 1;
     }
 
-    // Create Left Child
-    printf("Creating first-generation child 'stan'...\n");
+    // Create a first child under master
     TreeNode *stan = CreateChild(root, "stan");
 
-    // Create Sibling (Right Child approach)
-    printf("Creating 'childtest' branch off master root...\n");
+    // Create a branch off of root (sibling to stan) using your branch function
     TreeNode *childtest_node = CreateBranchBasedOfRoot(root, "childtest");
 
-    // Create Grandchild (Under the original 'stan' pointer)
-    printf("Creating second-generation grandchild 'stanmanson' under 'stan'...\n\n");
+    // Create a grandchild under stan (using the correct, non-overwritten pointer)
     CreateChild(stan, "stanmanson");
 
-    // Visual map to manually compare against traversal pattern
-    printf("--- EXPECTED HIERARCHY ---\n");
-    printf("master\n");
-    printf("├── stan (Child of master)\n");
-    printf("│   └── stanmanson (Child of stan)\n");
-    printf("└── childtest (Sibling of stan)\n\n");
-
-    printf("--- ACTUAL TRAVERSAL OUTPUT ---\n");
+    printf("Actual Tree Traversal:\n");
     TraverseInOrder(root);
-    printf("-------------------------------\n\n");
 
-    // Cleanup memory
-    printf("Cleaning up tree memory...\n");
+    // Free allocated memory
     FreeTree(root);
-    printf("Memory freed successfully.\n\n");
 
-    // Stop clock and calculate execution time
     end = clock();
     double microseconds = ((double)(end - start) / CLOCKS_PER_SEC) * 1e6;
-
-    printf("==================================================\n");
-    printf("Execution Speed: %.2f microseconds (us)\n", microseconds);
-    printf("==================================================\n");
+    printf("\nExecution Speed: %.2f microseconds (us)\n", microseconds);
 
     return 0;
 }
