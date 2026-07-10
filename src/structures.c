@@ -82,7 +82,7 @@ BranchStack *InitStack(int capacity){
         return NULL;
     }
 
-    stack->arr = (TreeNode *)malloc(capacity * sizeof(TreeNode));
+    stack->arr = (Node *)malloc(capacity * sizeof(Node));
     if (stack->arr == NULL){
 
      printf("Error : memory Allocation failed for stack array\n");
@@ -99,7 +99,7 @@ BranchStack *InitStack(int capacity){
 
 // TODO : correct pop
 
-TreeNode *Pop(BranchStack *stack)
+Node *Pop(BranchStack *stack)
 {
     // hecks for Stack Underflow (is the stack empty?)
     if (IsEmpty(stack))
@@ -110,7 +110,7 @@ TreeNode *Pop(BranchStack *stack)
     }
 
     // Grab the value at the top of the stack
-    TreeNode poppedValue = stack->arr[stack->top];
+    Node  poppedValue = stack->arr[stack->top];
 
     //Move the top index down by one
     stack->top--;
@@ -129,7 +129,7 @@ int IsEmpty(BranchStack *stack)
 
 // TODO : correct pop
 //--Push
-void push(BranchStack *stack, TreeNode* value)
+void push(BranchStack *stack, Node* value)
 {
     // if the stack is full
     if (stack->top >= stack->capacity - 1)
