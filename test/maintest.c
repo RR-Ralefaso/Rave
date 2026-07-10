@@ -19,16 +19,16 @@ int main(int argc, char const *argv[])
     }
 
     // Create a first child under master
-    TreeNode *stan = CreateChild(root, "stan");
+    TreeNode *childL1 = CreateChild(root, "childL1");
 
     // Create a branch off of root (sibling to stan) using your branch function
-    TreeNode *childtest_node = CreateBranchBasedOfRoot(root, "childtest");
+    TreeNode *childR1 = CreateBranchBasedOfRoot(root, "ChildR1");
 
     // Create a grandchild under stan (using the correct, non-overwritten pointer)
-    CreateChild(stan, "stanmanson");
+    CreateChild(root, "Based_of_root");
 
     printf("Actual Tree Traversal:\n");
-    TraverseInOrder(root);
+    TraversePreOrder(root);
 
     // Free allocated memory
     FreeTree(root);
