@@ -48,4 +48,10 @@ int IsEmpty(BranchStack *stack);
 //cleans up memory
 void FreeTree(TreeNode *root);
 
+//initiating the linked list
+Node *InitNode();
+
+//pushing into the linked list
+void AppendIntoNode(Node **head, void *data);
+
 #endif
