@@ -145,7 +145,7 @@ int IsEmpty(BranchStack *stack)
 }
 
 //--Push
-void push(BranchStack *stack, void *data)
+void Push(BranchStack *stack, void *data)
 {
     // Checks if the stack pointer itself is valid before performing operations
     if (stack == NULL)
