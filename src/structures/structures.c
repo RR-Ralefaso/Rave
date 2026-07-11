@@ -159,6 +159,8 @@ Node *InitNode()
 }
 
 //pushing into the linkedlist
+
+//i honestly forgot how to do this so i had to check my cs notes
 void AppendIntoNode(Node **head, void *data)
 {
     // initialize the new node
