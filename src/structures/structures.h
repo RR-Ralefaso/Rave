@@ -34,7 +34,7 @@ typedef struct TreeNode
 
 // Tree Functions
 TreeNode *Init(BranchStack *stack,char* name);
-// Stack Functions 
+// Stack Functions
 BranchStack *InitStack(int capacity);
 //pushes onto the stack
 void Push(BranchStack *stack, BranchStack* value);
