@@ -49,11 +49,11 @@ int main(int argc, char const *argv[])
 
     TraversePreOrder(root);
 
-    printf("\n the first commit : \n");
-    printf("branch name : %s\n", root->identity);
-    printf("layer identity : %d\n", root->data->identity);
-    printf("Data committed : %s\n", (char *)root->data->arr[root->data->top].data);
-    printf("I NEED TO SLEEP ZEHAHAHAHAHA..IM GREAT \n");
+    printf("\nthe first commit : \n");
+    printf("    branch name : %s\n", root->identity);
+    printf("    layer identity : %d\n", root->data->identity);
+    printf("    Data committed : %s\n", (char *)root->data->arr[root->data->top].data);
+    printf("I NEED TO SLEEP ZEHAHAHAHAHA.. \n");
 
     // Free allocated memory
     FreeTree(root);
