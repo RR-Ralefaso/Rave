@@ -42,5 +42,5 @@ void Commit(BranchStack *stack, void *data)
     // Save the newly increased capacity counter back to the stack structure
     stack->capacity = new_capacity;
     // Delegate the actual insertion and pointer linking to the push function
-    Push(stack, data);
+    push(stack, data);
 }

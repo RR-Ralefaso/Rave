@@ -37,7 +37,7 @@ TreeNode *Init(BranchStack *stack,char* name);
 // Stack Functions
 BranchStack *InitStack(int capacity);
 //pushes onto the stack
-void Push(BranchStack *stack, BranchStack* value);
+void push(BranchStack *stack, BranchStack* value);
 
 //pops top of stack
 Node *Pop(BranchStack *stack);
