@@ -33,6 +33,20 @@ TreeNode *Init(BranchStack *stack, char *name)
     return newNode;
 }
 
+//-initialising linked list-
+Node *InitNode()
+{
+    Node *NewNode = (Node *)malloc(sizeof(Node));
+    if (NewNode == NULL)
+    {
+        perror("Error : failed to allocate memory for Node\n");
+        return NULL;
+    }
+
+    NewNode->data = NULL;
+    NewNode->next = NULL;
+    return NewNode;
+}
 
 // Memory cleanup function to accompany your Init function
 void FreeTree(TreeNode *root)
@@ -74,31 +88,34 @@ void FreeTree(TreeNode *root)
     free(root);
 }
 
-BranchStack *InitStack(int capacity){
-    //allocate the size of the stack
+BranchStack *InitStack(int capacity)
+{
     BranchStack *stack = (BranchStack *)malloc(sizeof(BranchStack));
-
-    if(stack==NULL){
+    if (stack == NULL)
+    {
         perror("Error: Memory Allocation failed for the branch\n");
         return NULL;
     }
-
+    // Allocates space for 'capacity' number of Node structs contiguously
     stack->arr = (Node *)malloc(capacity * sizeof(Node));
-    if (stack->arr == NULL){
-
+    if (stack->arr == NULL)
+    {
         perror("Error : memory Allocation failed for stack array\n");
         free(stack);
         return NULL;
     }
-
+    // Safely initialize the pre-allocated nodes inside the array
+    for (int i = 0; i < capacity; i++)
+    {
+        stack->arr[i].data = NULL;
+        stack->arr[i].next = NULL;
+    }
     stack->capacity = capacity;
     stack->top = -1;
-    stack->identity = 0; //the identity of the stack
+    stack->identity = 0;
 
     return stack;
 }
-
-// TODO : correct pop
 
 Node *Pop(BranchStack *stack)
 {
@@ -128,63 +145,59 @@ int IsEmpty(BranchStack *stack)
 }
 
 //--Push
-void push(BranchStack *stack, Node* value)
+void push(BranchStack *stack, void *data)
 {
-    // if the stack is full
+    // Checks if the stack pointer itself is valid before performing operations
+    if (stack == NULL)
+    {
+        fprintf(stderr, "Error: No working stack available\n");
+        return;
+    }
+    // Checks if the stack has reached its maximum allocated capacity limits
     if (stack->top >= stack->capacity - 1)
     {
-        perror("Stack Overflow! Cannot push \n"); // check
-        return ;
+        fprintf(stderr, "Stack Overflow! Cannot push.\n");
+        return;
     }
-
-    //Increment top and insert the integer
+    // Moves the top pointer tracking index up to the next available slot
     stack->top++;
-    stack->arr[stack->top] = *value; //check
-}
 
+    // Assigns the generic data pointer directly to the current top node container
+    stack->arr[stack->top].data = data;
 
-//-initialising linked list-
-Node *InitNode()
-{
-    Node *NewNode = (Node *)malloc(sizeof(Node));
-    if (NewNode==NULL)
+    // Sets the top node next pointer to NULL since it is now the last element
+    stack->arr[stack->top].next = NULL;
+
+    // Links the immediately preceding array node next pointer to this new node
+    if (stack->top > 0)
     {
-        perror("Error : failed to allocate memory for Node\n");
-        return NULL;
+        stack->arr[stack->top - 1].next = &(stack->arr[stack->top]);
     }
-
-    NewNode->data = NULL;
-    NewNode->next = NULL;
-    return NewNode;
 }
 
 //pushing into the linkedlist
 
 //i honestly forgot how to do this so i had to check my cs notes
-void AppendIntoNode(Node **head, void *data)
+void AppendIntoStackArray(BranchStack *stack, void *data)
 {
-    // initialize the new node
-    Node *NewNode = InitNode();
-    if (NewNode == NULL)
+    // Checks if the pre-allocated array is full
+    if (stack->top >= stack->capacity - 1)
     {
-        perror("Error : Memory Allocation Failed\n");
+        printf("Stack Overflow: Cannot append, array capacity reached.\n");
         return;
-    }
-    NewNode->data = data;
-    // NewNode->next is already set to NULL by InitNode()
-    // If the list is completely empty, make this the head node
-    if (*head == NULL)
-    {
-        *head = NewNode;
-        return;
-    }
-    //Otherwise, traverse to the end of the list
-    Node *current = *head;
-    while (current->next != NULL)
-    {
-        current = current->next;
     }
 
-    // Link the old last node to our new node
-    current->next = NewNode;
+    // Moves to the next available slot in the pre-allocated array
+    stack->top++;
+
+    // 3Populate the data container already waiting for us in the array
+    stack->arr[stack->top].data = data;
+    stack->arr[stack->top].next = NULL; // It's now the last element, so its next is NULL
+
+    // 4Link the PREVIOUS node in the array to this new node
+    // (This turns your contiguous array slots into a functional linked list chain!)
+    if (stack->top > 0)
+    {
+        stack->arr[stack->top - 1].next = &(stack->arr[stack->top]);
+    }
 }
