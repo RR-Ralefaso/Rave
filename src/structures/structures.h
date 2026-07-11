@@ -52,6 +52,6 @@ void FreeTree(TreeNode *root);
 Node *InitNode();
 
 //pushing into the linked list
-void AppendIntoNode(Node **head, void *data);
+void AppendIntoNode(Node *head, void *data);
 
 #endif
