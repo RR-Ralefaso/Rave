@@ -59,7 +59,7 @@ void TraversePostOrder(TreeNode *root)
 
 bool Find(TreeNode *root, char *target){ //takes in a treenode and a string 
     if (root==NULL){
-        printf("target branch does not exist\n");
+        fprintf(stderr,"target branch does not exist\n");
         return false;
     }
 
@@ -80,7 +80,7 @@ bool HasChild(TreeNode *root)
     //checks if the root exists if not it should return a warning and false
     if (root==NULL)
     {
-        perror("Error : Parent Node doesnt exist");
+        fprintf(stderr,"Error : Parent Node doesnt exist");
         return false;
     }
 

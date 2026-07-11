@@ -114,7 +114,7 @@ TreeNode *CreateBranchBasedOfRoot(TreeNode *root, char *branchbeingcreated)
     {
         // Lineage condition: The root node is completely isolated and has no sub-branches.
         // We establish a brand new, baseline tracking branch positioned directly beneath the root.
-        perror("Created initial branch under root\n");
+        fprintf(stderr,"Created initial branch under root\n");
         return CreateChild(root, branchbeingcreated);
     }
     else

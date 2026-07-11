@@ -11,25 +11,32 @@ int main(int argc, char const *argv[])
     start = clock();
 
     // Initialize root node
-    TreeNode *root = Init(InitStack(0), "master");
+    TreeNode *root = Init(InitStack(1),"master");
     if (root == NULL)
     {
         printf("Error: Root initialization failed.\n");
         return 1;
     }
 
-    // Create a first child under master
-    TreeNode *childL1 = CreateChild(root, "childL1");
+    // // Create a first child under master
+    // TreeNode *childL1 = CreateChild(root, "childL1");
 
-    // Create a branch off of root (sibling to stan) using your branch function
-    TreeNode *childR1 = CreateBranchBasedOfRoot(root, "ChildR1");
+    // // Create a branch off of root (sibling to stan) using your branch function
+    // TreeNode *childR1 = CreateBranchBasedOfRoot(root, "ChildR1");
 
-    // Create a grandchild under stan (using the correct, non-overwritten pointer)
-    CreateChild(root, "Based_of_root");
-    CreateChild(childL1, "childL1test"); //creating a child for childL1
-    //checking if i can create another child for master
-    CreateChild(root, "child3");
+    // // Create a grandchild under stan (using the correct, non-overwritten pointer)
+    // CreateChild(root, "Based_of_root");
+    // CreateChild(childL1, "childL1test"); //creating a child for childL1
+    // //checking if i can create another child for master
+    
+    //testing actually commiting
+    /*
+        so far we have nothing but the main branch that as a branch in it.
+        theres nothing in the branch
+        so im expecting to be like :
 
+        (main) -inside main -> (stack with nothing in it) -
+    */
     
     printf("Actual Tree Traversal:\n");
 
