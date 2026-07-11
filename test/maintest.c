@@ -4,7 +4,7 @@
 #include "../src/structures/structures.h"
 #include "../src/structures/structure_traversal/StructureTraversal.h"
 #include "../src/branch/branches.h"
-#include "../commits/commits.h"
+#include "../src/commits/commits.h"
 
 int main(int argc, char const *argv[])
 {
