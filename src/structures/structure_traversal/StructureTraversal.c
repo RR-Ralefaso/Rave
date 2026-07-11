@@ -80,7 +80,7 @@ bool HasChild(TreeNode *root)
     //checks if the root exists if not it should return a warning and false
     if (root==NULL)
     {
-        printf("Error : Parent Node doesnt exist");
+        perror("Error : Parent Node doesnt exist");
         return false;
     }
 

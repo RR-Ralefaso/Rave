@@ -16,14 +16,14 @@ TreeNode *CreateChild(TreeNode *root, char *childname)
 {
     if (root == NULL)
     {
-        printf("Error: The VCS hasn't been initialized\n");
+        perror("Error: The VCS hasn't been initialized\n");
         return NULL;
     }
 
     // Check if the input name is valid
     if (childname == NULL || childname[0] == '\0')
     {
-        printf("Error: Tried Creating a nameless Branch\n");
+        perror("Error: Tried Creating a nameless Branch\n");
         return NULL;
     }
 
@@ -104,7 +104,7 @@ TreeNode *CreateBranchBasedOfRoot(TreeNode *root, char *branchbeingcreated)
     // empty, it implies the version control environment was never allocated in memory.
     if (root == NULL)
     {
-        printf("Error: VCS system has not been initialised\n");
+        perror("Error: VCS system has not been initialised\n");
         return NULL;
     }
 
@@ -114,7 +114,7 @@ TreeNode *CreateBranchBasedOfRoot(TreeNode *root, char *branchbeingcreated)
     {
         // Lineage condition: The root node is completely isolated and has no sub-branches.
         // We establish a brand new, baseline tracking branch positioned directly beneath the root.
-        printf("Created initial branch under root\n");
+        perror("Created initial branch under root\n");
         return CreateChild(root, branchbeingcreated);
     }
     else
