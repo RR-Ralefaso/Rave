@@ -11,7 +11,7 @@ TreeNode *Init(BranchStack *stack, char *name)
 
     // Check if memory allocation was successful
     if (newNode == NULL){
-        printf("Error: Memory allocation failed for TreeNode.\n");
+        perror("Error: Memory allocation failed for TreeNode.\n");
         return NULL;
     }
 
@@ -79,16 +79,16 @@ BranchStack *InitStack(int capacity){
     BranchStack *stack = (BranchStack *)malloc(sizeof(BranchStack));
 
     if(stack==NULL){
-        printf("Error: Memory Allocation failed for the branch\n");
+        perror("Error: Memory Allocation failed for the branch\n");
         return NULL;
     }
 
     stack->arr = (Node *)malloc(capacity * sizeof(Node));
     if (stack->arr == NULL){
 
-     printf("Error : memory Allocation failed for stack array\n");
-    free(stack);
-    return NULL;
+        perror("Error : memory Allocation failed for stack array\n");
+        free(stack);
+        return NULL;
     }
 
     stack->capacity = capacity;
@@ -105,7 +105,7 @@ Node *Pop(BranchStack *stack)
     // Checks for Stack Underflow (is the stack empty?)
     if (IsEmpty(stack))
     {
-        printf("Error: Stack Underflow! Cannot pop from an empty stack.\n");
+        perror("Error: Stack Underflow! Cannot pop from an empty stack.\n");
         // Return NULL to show failure (since the return type is a pointer)
         return NULL;
     }
@@ -127,14 +127,13 @@ int IsEmpty(BranchStack *stack)
     return (stack->top == -1);
 }
 
-// TODO : correct pop
 //--Push
 void push(BranchStack *stack, Node* value)
 {
     // if the stack is full
     if (stack->top >= stack->capacity - 1)
     {
-        printf("Stack Overflow! Cannot push \n"); //check
+        perror("Stack Overflow! Cannot push \n"); // check
         return ;
     }
 
@@ -143,3 +142,47 @@ void push(BranchStack *stack, Node* value)
     stack->arr[stack->top] = *value; //check
 }
 
+
+//-initialising linked list-
+Node *InitNode()
+{
+    Node *NewNode = (Node *)malloc(sizeof(Node));
+    if (NewNode==NULL)
+    {
+        perror("Error : failed to allocate memory for Node\n");
+        return NULL;
+    }
+
+    NewNode->data = NULL;
+    NewNode->next = NULL;
+    return NewNode;
+}
+
+//pushing into the linkedlist
+void AppendIntoNode(Node **head, void *data)
+{
+    // initialize the new node
+    Node *NewNode = InitNode();
+    if (NewNode == NULL)
+    {
+        perror("Error : Memory Allocation Failed\n");
+        return;
+    }
+    NewNode->data = data;
+    // NewNode->next is already set to NULL by InitNode()
+    // If the list is completely empty, make this the head node
+    if (*head == NULL)
+    {
+        *head = NewNode;
+        return;
+    }
+    //Otherwise, traverse to the end of the list
+    Node *current = *head;
+    while (current->next != NULL)
+    {
+        current = current->next;
+    }
+
+    // Link the old last node to our new node
+    current->next = NewNode;
+}
