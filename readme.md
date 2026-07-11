@@ -50,7 +50,7 @@ The system tracks repository ancestry using a path-based hierarchy (separated by
 
 1) running test :
         mkdir build
-        gcc test/maintest.c src/structures/structures.c src/structures/structure_traversal/StructureTraversal.c src/branch/branches.c -o build/testmain
+        gcc test/maintest.c src/structures/structures.c src/structures/structure_traversal/StructureTraversal.c src/branch/branches.c src/commits/commits.c -o build/testmain
         ./build/testmain 
 
 2) Running main:
@@ -64,6 +64,7 @@ The system tracks repository ancestry using a path-based hierarchy (separated by
 
 ```
     [x] work on naming logic for child nodes
+    [x] created ways to commit 
     [] rethink the logic behind child nodes
     [] think about how one could create a child of a commit(stack)
     [] work on ensuring that names are unique so we can use em for commit identities eg master1  with master being the branch and 1 being the first commit

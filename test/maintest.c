@@ -4,6 +4,7 @@
 #include "../src/structures/structures.h"
 #include "../src/structures/structure_traversal/StructureTraversal.h"
 #include "../src/branch/branches.h"
+#include "../commits/commits.h"
 
 int main(int argc, char const *argv[])
 {
@@ -35,13 +36,25 @@ int main(int argc, char const *argv[])
         theres nothing in the branch
         so im expecting to be like :
 
-        (main) -inside main -> (stack with nothing in it) -
-    */
-    
+        (main) -inside main -> (stack with nothing in it) -inside the frst layer->(nothing in the node)
+        */
+
+    char data[] = "I AM GREATNESS"; //data
+
+    Commit(root->data, &data);
+
+
     printf("Actual Tree Traversal:\n");
 
 
     TraversePreOrder(root);
+
+    printf("\n the first commit : \n");
+    printf("branch name : %s\n", root->identity);
+    printf("layer identity : %d\n", root->data->identity);
+    printf("Data committed : %s\n", root->data->arr[root->data->top].data);
+
+    printf("I NEED TO SLEEP ZEHAHAHAHAHA..IM GREAT \n");
 
     // Free allocated memory
     FreeTree(root);
