@@ -20,8 +20,8 @@
 The system tracks repository ancestry using a path-based hierarchy (separated by `/`). This cleanly maps the exact genealogy of your VCS layout without string inflation or memory bloat:
 
 - **Root Branch:** `master`
-- **Sub-Branch:** `master/stan`
-- **Nested Branch/Child:** `master/stan/stanmanson`
+- **Sub-Branch:** `master/childL`
+- **Nested Branch/Child:** `master/childL/childL2`
 
 ```text
 [ root ] 
@@ -30,16 +30,16 @@ The system tracks repository ancestry using a path-based hierarchy (separated by
         │
         ├── (Left Child Pointer)
         │     ▼
-        │   [ stan ] ───(Right Sibling Pointer)───► [ childtest ]
+        │   [ childL ] ───(Right Sibling Pointer)───► [ ChildR ]
         │     │                                       │
-        │     │                                       └── Identity: "master/childtest"
-        │     ├── Identity: "master/stan"
+        │     │                                       └── Identity: "master/ChildR"
+        │     ├── Identity: "master/childL"
         │     │
         │     └── (Left Child Pointer)
         │           ▼
-        │         [ stanmanson ]
+        │         [ childL2 ]
         │           │
-        │           └── Identity: "master/stan/stanmanson"
+        │           └── Identity: "master/childL/childL2"
 
 ```
 
@@ -71,5 +71,3 @@ The system tracks repository ancestry using a path-based hierarchy (separated by
 
 
 ```
-
-
