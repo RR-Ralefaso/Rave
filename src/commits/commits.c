@@ -44,3 +44,5 @@ void Commit(BranchStack *stack, void *data)
     // Delegate the actual insertion and pointer linking to the push function
     Push(stack, data);
 }
+
+
