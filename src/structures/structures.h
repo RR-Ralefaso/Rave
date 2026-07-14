@@ -7,6 +7,7 @@
 typedef struct Node
 {
     void *data; // Pointer to generic data
+    //char *identity; //added identity that way a commit has an identity allowing modification and viewing
     struct Node *next;
 } Node;
 
@@ -28,7 +29,27 @@ typedef struct TreeNode
     char* identity; //identity
 } TreeNode;
 
+typedef enum
+{
+    TYPE_UNKNOWN,      // Default/fallback state to catch uninitialized containers
+    TYPE_NODE,         // Identifies the underlying data as a 'Node' struct
+    TYPE_BRANCH_STACK, // Identifies the underlying data as a 'BranchStack' struct
+    TYPE_TREE_NODE     // Identifies the underlying data as a 'TreeNode' struct
+} DataType;
 
+/**
+ * GENERIC CONTAINER 
+ * Instead of passing raw, anonymous 'void *' pointers directly through your
+ * system, you wrap them in this 'GenericContainer'.
+ * * This creates a unified "envelope" that pairs the actual data pointer with
+ * a metadata tag (the enum above) so functions can safely inspect and identify
+ * what they are working with before casting or dereferencing.
+ */
+typedef struct
+{
+    DataType type; // The "tag" or "ID" telling us what kind of struct 'ptr' targets
+    void *ptr;     // A generic pointer holding the memory address of the actual struct
+} GenericContainer;
 
 // --- Function Prototypes ---
 
