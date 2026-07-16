@@ -64,6 +64,7 @@ The system tracks repository ancestry using a path-based hierarchy (separated by
 
 ```
     [x] work on naming logic for child nodes
+    [-] i created a bad file structure but meh works
     [x] created ways to commit 
     [] rethink the logic behind child nodes
     [] think about how one could create a child of a commit(stack)

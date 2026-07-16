@@ -6,8 +6,5 @@
 
 
 //--Protype functions
-void isNode(void *value);
-void isStack(void *value);
-void isTreeNode(void *value);
 
 #endif
