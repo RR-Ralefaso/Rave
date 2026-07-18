@@ -7,6 +7,7 @@
 typedef struct Node
 {
     void *data; // Pointer to generic data
+    //char *identity; //added identity that way a commit has an identity allowing modification and viewing
     struct Node *next;
 } Node;
 
@@ -27,8 +28,6 @@ typedef struct TreeNode
     struct TreeNode *right; // right child
     char* identity; //identity
 } TreeNode;
-
-
 
 // --- Function Prototypes ---
 
