@@ -53,7 +53,7 @@ The system tracks repository ancestry using a path-based hierarchy (separated by
         gcc test/maintest.c src/structures/structures.c src/structures/structure_traversal/StructureTraversal.c src/branch/branches.c src/commits/commits.c -o build/testmain
         ./build/testmain 
 
-2) Running main:
+2) Running main: ( theres nothing to run yet)
         mkdir build
         gcc main.c src/structures/structures.c src/structures/structure_traversal/StructureTraversal.c src/branch/branches.c -o -g main
         ./main
