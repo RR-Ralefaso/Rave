@@ -43,6 +43,6 @@ void Commit(BranchStack *stack, void *data)
     stack->capacity = new_capacity;
     // Delegate the actual insertion and pointer linking to the push function
     Push(stack, data);
+    free(temp_arr);
+    
 }
-
-
