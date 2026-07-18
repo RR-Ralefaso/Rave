@@ -5,6 +5,7 @@
 #include "../src/structures/structure_traversal/StructureTraversal.h"
 #include "../src/branch/branches.h"
 #include "../src/commits/commits.h"
+#include "../src/branch/merge/merge.h"
 
 int main(int argc, char const *argv[])
 {

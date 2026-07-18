@@ -50,8 +50,8 @@ The system tracks repository ancestry using a path-based hierarchy (separated by
 
 1) running test :
         mkdir build
-        gcc test/maintest.c src/structures/structures.c src/structures/structure_traversal/StructureTraversal.c src/branch/branches.c src/commits/commits.c -o build/testmain
-        ./build/testmain 
+        gcc test/maintest.c src/structures/structures.c src/structures/structure_traversal/StructureTraversal.c src/branch/branches.c  src/branch/merge/merge.c src/commits/commits.c -o build/test
+        ./build/test 
 
 2) Running main: ( theres nothing to run yet)
         mkdir build
@@ -67,6 +67,8 @@ The system tracks repository ancestry using a path-based hierarchy (separated by
     [-] i created a bad file structure but meh works
     [x] created ways to commit 
     [] rethink the logic behind child nodes
+    [] remove merge branches and create merge so it can also merge commits and branches 
+    [] remember to work on the commits identity
     [] think about how one could create a child of a commit(stack)
     [] work on ensuring that names are unique so we can use em for commit identities eg master1  with master being the branch and 1 being the first commit
 
