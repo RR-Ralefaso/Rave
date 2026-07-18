@@ -20,8 +20,8 @@ int main(int argc, char const *argv[])
         return 1;
     }
 
-    // // Create a first child under master
-    // TreeNode *childL1 = CreateChild(root, "childL1");
+    // Create a first child under master
+    TreeNode *childL1 = CreateChild(root, "childL1");
 
     // // Create a branch off of root (sibling to stan) using your branch function
     // TreeNode *childR1 = CreateBranchBasedOfRoot(root, "ChildR1");
@@ -39,11 +39,25 @@ int main(int argc, char const *argv[])
 
         (main) -inside main -> (stack with nothing in it) -inside the frst layer->(nothing in the node)
         */
+    //DATA
 
-    char data[] = "I AM GREATNESS"; //data
 
+    char data[] = "I AM GREATNESS";
+    int dataint = 3;
+
+    //==========================TESTING COMMITS=======================(i was freaking holding the shift key instead of just capslocks anyway)
     Commit(root->data, &data);
+    Commit(childL1->data, &dataint);
 
+
+    //========================TESTING MERGES=====================
+    /*so far what do i have hmm lemme see :
+        branches : root , childL1
+    */
+
+    MergeBranches(root, childL1);
+
+    //===========================TREE=========================
 
     printf("Actual Tree Traversal:\n");
 

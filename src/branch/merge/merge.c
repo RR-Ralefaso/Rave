@@ -36,5 +36,5 @@ void MergeBranches(TreeNode *branchMT, TreeNode *branchBM)
 
     // i was supposed to make sure it merges onto it as a commit there for the commit becomes the merge inside the node alowinf or data of that
     // commit to become the merge of the two branches (it shouldnt form a new branch)
-    Commit(branchMT, branchBM);
+    Commit(branchMT->data, branchBM);
 }
