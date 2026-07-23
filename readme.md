@@ -3,7 +3,7 @@
 ## About
 
 - **Overview:** An open-source, experimental Version Control System (VCS) built from the ground up.
-- **Language:** C / C++
+- **Language:** C 
 - **Author:** [github.com/RR-Ralefaso](https://github.com/RR-Ralefaso)
 
 ---
