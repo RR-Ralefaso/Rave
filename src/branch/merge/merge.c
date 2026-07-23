@@ -6,6 +6,11 @@
 #include "../../structures/structure_traversal/StructureTraversal.h"
 
 //merging should merge branches
+
+/*
+    merge isnt created correctly -fix
+
+*/
 void MergeBranches(TreeNode *branchMT, TreeNode *branchBM)
 {
 
