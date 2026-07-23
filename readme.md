@@ -308,9 +308,27 @@ gcc -g main.c \
     -o build/main
 
 ./build/main
+
 ```
 
 ---
+## Running Using the Cmake
+```bash
+
+# Configure and create build folder
+cmake -B build
+
+# Compile the executable
+cmake --build build
+
+# Run the executable
+./build/test
+
+```
+---
+
+
+
 
 # Developer Roadmap
 
