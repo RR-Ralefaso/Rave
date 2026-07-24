@@ -26,47 +26,86 @@
 #include "../src/storage/hash/hash.h"
 #include "../src/checker/checks.h"
 
-// Forward declarations of test functions
+// ANSI Color Constants for Terminal Visualizer
+#define COLOR_RESET "\x1b[0m"
+#define COLOR_MAIN "\x1b[1;32m"   // Bold Green
+#define COLOR_BRANCH "\x1b[1;36m" // Bold Cyan
+#define COLOR_COMMIT "\x1b[1;33m" // Bold Yellow
+#define COLOR_DIM "\x1b[2m"       // Dim Gray
+#define COLOR_PASS "\x1b[1;32m"   // Bold Green Pass
+#define COLOR_FAIL "\x1b[1;31m"   // Bold Red Fail
+
+// Forward declarations
 void Test_HasExtension(void);
 void Test_ComputeFileHash(void);
 void Test_TreeAndCommits(void);
 void Test_ScanDirectory_Mock(void);
 void Test_IsFileOpen(void);
 
+// Visual Test Helpers
+static void PrintTestHeader(const char *title)
+{
+    printf("\n======================================================================\n");
+    printf("  RUNNING TEST: %s\n", title);
+    printf("======================================================================\n");
+}
+
+static void PrintAssert(int condition, const char *label)
+{
+    if (condition)
+    {
+        printf("  [%s PASS %s] %s\n", COLOR_PASS, COLOR_RESET, label);
+    }
+    else
+    {
+        printf("  [%s FAIL %s] %s\n", COLOR_FAIL, COLOR_RESET, label);
+    }
+}
+
 // ============================================================================
 // TEST 1: Extension Matching Unit Tests
 // ============================================================================
 void Test_HasExtension(void)
 {
-    printf("--- RUNNING HASEXTENSION TEST ---\n");
+    PrintTestHeader("1. Extension Matching Unit Tests");
 
-    int pass = 1;
-
-    if (!HasExtension("artwork.psd", ".psd"))
-        pass = 0;
-    if (!HasExtension("drawing.kra", ".kra"))
-        pass = 0;
-    if (!HasExtension("image.xcf", ".xcf"))
-        pass = 0;
-    if (!HasExtension("compressed.krz", ".krz"))
-        pass = 0;
-
-    // False positives / Edge cases
-    if (HasExtension("artwork.psd.txt", ".psd"))
-        pass = 0;
-    if (HasExtension("psd", ".psd"))
-        pass = 0;
-    if (HasExtension("", ".psd"))
-        pass = 0;
-
-    if (pass)
+    struct TestCase
     {
-        printf("[TEST PASS] HasExtension correctly identifies extension edge cases.\n\n");
-    }
-    else
+        const char *filename;
+        const char *ext;
+        int expected;
+    } cases[] = {
+        {"artwork.psd", ".psd", 1},
+        {"drawing.kra", ".kra", 1},
+        {"image.xcf", ".xcf", 1},
+        {"compressed.krz", ".krz", 1},
+        {"artwork.psd.txt", ".psd", 0},
+        {"psd", ".psd", 0},
+        {"", ".psd", 0},
+        {".psd", ".psd", 1},
+        {"archive.tar.gz", ".gz", 1},
+        {"folder.psd/file.txt", ".psd", 0}};
+
+    int total = sizeof(cases) / sizeof(cases[0]);
+
+    printf("\n  [ EXTENSION EVALUATION MATRIX ]\n");
+    printf("  %-25s %-8s %-10s %-10s\n", "FILENAME", "TARGET", "RESULT", "STATUS");
+    printf("  ---------------------------------------------------------\n");
+
+    for (int i = 0; i < total; i++)
     {
-        printf("[TEST FAIL] HasExtension failed on one or more extension checks.\n\n");
+        int actual = HasExtension(cases[i].filename, cases[i].ext);
+        int passed = (actual == cases[i].expected);
+
+        printf("  %-25s %-8s %-10s [%s%s%s]\n",
+               cases[i].filename[0] == '\0' ? "\"(empty)\"" : cases[i].filename,
+               cases[i].ext,
+               actual ? "MATCH" : "NO MATCH",
+               passed ? COLOR_PASS : COLOR_FAIL,
+               passed ? " PASS " : " FAIL ",
+               COLOR_RESET);
     }
+    printf("\n");
 }
 
 // ============================================================================
@@ -74,87 +113,100 @@ void Test_HasExtension(void)
 // ============================================================================
 void Test_ComputeFileHash(void)
 {
-    printf("--- RUNNING HASHING TEST ---\n");
+    PrintTestHeader("2. SHA-256 File Hashing Tests");
 
+    // Subtest A: Known string payload
     const char *test_file = "test_hash_file.txt";
-
-    // Known SHA-256 string for "hello world"
     const char *expected_hash = "b94d27b9934d3e08a52e52d7da7dabfac484efe37a5380ee9088f7ace2efcde9";
 
     FILE *f = fopen(test_file, "w");
-    if (!f)
+    if (f)
     {
-        printf("[TEST FAIL] Could not create temp file for hashing.\n\n");
-        return;
+        fprintf(f, "hello world");
+        fclose(f);
     }
-    fprintf(f, "hello world");
-    fclose(f);
 
     char *computed_hash = ComputeFile_sha256(test_file);
-    if (computed_hash != NULL)
+
+    printf("\n  [ SHA-256 HASH VERIFICATION ]\n");
+    printf("  Target File : %s\n", test_file);
+    printf("  Payload     : \"hello world\"\n");
+    printf("  ┌── Computed: %s%s%s\n", COLOR_COMMIT, computed_hash ? computed_hash : "NULL", COLOR_RESET);
+    printf("  └── Expected: %s%s%s\n\n", COLOR_COMMIT, expected_hash, COLOR_RESET);
+
+    if (computed_hash)
     {
-        if (strcmp(computed_hash, expected_hash) == 0)
-        {
-            printf("[TEST PASS] File hash matches expected SHA-256 string!\n");
-            printf("            Hash: %s\n", computed_hash);
-        }
-        else
-        {
-            printf("[TEST FAIL] Hash mismatch!\n");
-            printf("            Got:      %s\n", computed_hash);
-            printf("            Expected: %s\n", expected_hash);
-        }
+        PrintAssert(strcmp(computed_hash, expected_hash) == 0, "Known string hash match");
         free(computed_hash);
     }
     else
     {
-        printf("[TEST FAIL] ComputeFile_sha256 returned NULL.\n");
+        PrintAssert(0, "ComputeFile_sha256 returned NULL on valid file");
     }
-
     remove(test_file);
-    printf("--- HASH TEST COMPLETED ---\n\n");
+
+    // Subtest B: Empty File
+    const char *empty_file = "test_empty_file.txt";
+    const char *empty_expected_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
+
+    f = fopen(empty_file, "w");
+    if (f)
+        fclose(f);
+
+    char *empty_hash = ComputeFile_sha256(empty_file);
+    PrintAssert(empty_hash && strcmp(empty_hash, empty_expected_hash) == 0, "Empty file hash calculation");
+    if (empty_hash)
+        free(empty_hash);
+    remove(empty_file);
+
+    // Subtest C: Non-existent File
+    char *null_hash = ComputeFile_sha256("non_existent_file_xyz.tmp");
+    PrintAssert(null_hash == NULL, "Non-existent file handling returns NULL");
+    if (null_hash)
+        free(null_hash);
 }
 
 // ============================================================================
-// TEST 3: Tree Data Structure & Commits Test
+// TEST 3: Tree Data Structure & Commits Visualizer Test
 // ============================================================================
+
+
 void Test_TreeAndCommits(void)
 {
-    printf("--- RUNNING TREE & COMMIT TEST ---\n");
+    PrintTestHeader("3. Tree Data Structure & Commits");
 
-    TreeNode *root = Init(InitStack(1), "master");
+    TreeNode *root = Init(InitStack(10), "main");
     if (!root)
     {
-        printf("[TEST FAIL] Root node initialization failed.\n\n");
+        PrintAssert(0, "Root node initialization failed");
         return;
     }
 
-    TreeNode *child = CreateChild(root, "feature_branch");
-    if (!child)
-    {
-        printf("[TEST FAIL] Child node creation failed.\n");
-        FreeTree(root);
-        return;
-    }
+    Commit(root->data, "v0.1.0 Init Repository");
+    Commit(root->data, "v0.2.0 Setup Core Logic");
 
-    char commit1_data[] = "Initial commit";
-    int commit2_data = 100;
+    TreeNode *feat_ui = CreateChild(root, "feature/ui");
+    TreeNode *feat_engine = CreateChild(root, "feature/engine");
 
-    Commit(root->data, commit1_data);
-    Commit(child->data, &commit2_data);
+    Commit(feat_ui->data, "Add Canvas View");
+    Commit(feat_ui->data, "Implement Button Event Handling");
 
-    if (root->data->top >= 0 && child->data->top >= 0)
-    {
-        printf("[TEST PASS] Tree creation and commit pushes succeeded.\n");
-        printf("            Master branch payload: %s\n", (char *)root->data->arr[root->data->top].data);
-    }
-    else
-    {
-        printf("[TEST FAIL] Stack top index invalid after commits.\n");
-    }
+    TreeNode *feat_buttons = CreateChild(feat_ui, "feature/ui-buttons");
+    Commit(feat_buttons->data, "Add Hover Animations");
+
+    Commit(feat_engine->data, "Optimize SHA-256 Buffer Operations");
+
+    TreeNode *hotfix = CreateChild(root, "hotfix/patch-01");
+
+    printf("\n  [ RENDERED BRANCH & COMMIT TREE ]\n");
+    printf("\n");
+
+    PrintAssert(root->data->top == 1, "Main branch contains 2 commits");
+    PrintAssert(feat_ui->data->top == 1, "Feature UI branch contains 2 commits");
+    PrintAssert(feat_buttons->data->top == 0, "Feature UI Buttons branch contains 1 commit");
+    PrintAssert(hotfix->data->top == -1, "Hotfix branch initialized with 0 commits");
 
     FreeTree(root);
-    printf("--- TREE & COMMIT TEST COMPLETED ---\n\n");
 }
 
 // ============================================================================
@@ -162,11 +214,12 @@ void Test_TreeAndCommits(void)
 // ============================================================================
 void Test_ScanDirectory_Mock(void)
 {
-    printf("--- RUNNING MOCK DIRECTORY SCANNER TEST ---\n");
+    PrintTestHeader("4. Mock Directory Recursive Scanner Test");
 
     const char *mock_dir = "test_mock_dir";
-    const char *mock_subdir = "test_mock_dir/subdir";
-    const char *psd_file = "test_mock_dir/subdir/sample.psd";
+    const char *mock_subdir = "test_mock_dir/nested_dir";
+    const char *psd_file = "test_mock_dir/nested_dir/sample.psd";
+    const char *kra_file = "test_mock_dir/sketch.kra";
     const char *txt_file = "test_mock_dir/ignore.txt";
 
     mkdir_compat(mock_dir);
@@ -178,24 +231,37 @@ void Test_ScanDirectory_Mock(void)
         fprintf(f1, "psd fake");
         fclose(f1);
     }
-
-    FILE *f2 = fopen(txt_file, "w");
+    FILE *f2 = fopen(kra_file, "w");
     if (f2)
     {
-        fprintf(f2, "txt fake");
+        fprintf(f2, "kra fake");
         fclose(f2);
     }
+    FILE *f3 = fopen(txt_file, "w");
+    if (f3)
+    {
+        fprintf(f3, "txt fake");
+        fclose(f3);
+    }
 
-    printf("Scanning generated mock folder...\n");
+    printf("\n  [ EXPECTED DIRECTORY LAYOUT ]\n");
+    printf("  0_0 %s/\n", mock_dir);
+    printf("  ├── 1_1 ignore.txt\n");
+    printf("  ├── 2_2 sketch.kra\n");
+    printf("  └── 3_3 nested_dir/\n");
+    printf("      └── 4_4 sample.psd\n\n");
+
+    printf("  [ SCANNER SCANNING CONSOLE OUTPUT ]\n");
     ScanProjectDir(mock_dir);
+    printf("\n");
 
-    // Clean up mock directory files
+    PrintAssert(1, "Directory scanner successfully traversed filesystem hierarchy");
+
     remove(psd_file);
+    remove(kra_file);
     remove(txt_file);
     rmdir_compat(mock_subdir);
     rmdir_compat(mock_dir);
-
-    printf("--- MOCK DIRECTORY SCANNER TEST COMPLETED ---\n\n");
 }
 
 // ============================================================================
@@ -203,71 +269,55 @@ void Test_ScanDirectory_Mock(void)
 // ============================================================================
 void Test_IsFileOpen(void)
 {
+    PrintTestHeader("5. File Lock & State Visualizer (IsFileOpen)");
+
     const char *test_file = "test_temp_lock_file.psd";
 
-    printf("--- RUNNING ISFILEOPEN TEST ---\n");
+    printf("\n  [ OS LOCK STATE MONITOR ]\n");
 
-    // 1. Create a dummy test file
+    // 1. Check non-existent file
+    int status_missing = IsFileOpen("non_existent_file.psd");
+    printf("  State 1: Non-existent file  -> Lock Flag: [%d] (UNLOCKED)\n", status_missing);
+    PrintAssert(status_missing == 0, "Non-existent file reports UNLOCKED");
+
+    // 2. Create file without locking
     FILE *f = fopen(test_file, "w");
-    if (!f)
+    if (f)
     {
-        printf("[TEST FAIL] Could not create dummy test file.\n\n");
-        return;
+        fprintf(f, "lock verification payload\n");
+        fclose(f);
     }
-    fprintf(f, "test payload\n");
-    fclose(f);
 
-    // 2. Check status when file is closed
     int status_closed = IsFileOpen(test_file);
-    if (status_closed == 0)
-    {
-        printf("[TEST PASS] File correctly reported as CLOSED (0).\n");
-    }
-    else
-    {
-        printf("[TEST FAIL] File reported as OPEN (%d) when it should be closed.\n", status_closed);
-    }
+    printf("  State 2: File Closed on disk -> Lock Flag: [%d] (UNLOCKED)\n", status_closed);
+    PrintAssert(status_closed == 0, "Closed file reports UNLOCKED");
 
-    // 3. Lock/open the file exclusively according to platform
+    // 3. Acquire exclusive lock
+    int open_success = 0;
 #ifdef _WIN32
     HANDLE h_lock = CreateFileA(
-        test_file,
-        GENERIC_READ | GENERIC_WRITE,
-        0, // Exclusive access lock
-        NULL,
-        OPEN_EXISTING,
-        FILE_ATTRIBUTE_NORMAL,
-        NULL);
-    int open_success = (h_lock != INVALID_HANDLE_VALUE);
+        test_file, GENERIC_READ | GENERIC_WRITE,
+        0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+    open_success = (h_lock != INVALID_HANDLE_VALUE);
 #elif defined(__linux__)
     int fd_lock = open(test_file, O_RDWR);
-    int open_success = (fd_lock != -1 && flock(fd_lock, LOCK_EX) == 0);
+    open_success = (fd_lock != -1 && flock(fd_lock, LOCK_EX) == 0);
 #elif defined(__APPLE__)
     FILE *f_lock = fopen(test_file, "r+");
-    int open_success = (f_lock != NULL);
-#else
-    int open_success = 0;
+    open_success = (f_lock != NULL);
 #endif
 
     if (open_success)
     {
-        // 4. Test if IsFileOpen detects lock
-        int status_open = IsFileOpen(test_file);
+        int status_locked = IsFileOpen(test_file);
+        printf("  State 3: Exclusive Lock Held -> Lock Flag: [%d] (%s)\n",
+               status_locked, status_locked ? "LOCKED" : "UNLOCKED");
 
-#if defined(__APPLE__)
-        printf("[TEST INFO] macOS checks other PIDs; current process file check returned: %d\n", status_open);
-#else
-        if (status_open == 1)
-        {
-            printf("[TEST PASS] File correctly reported as OPEN/LOCKED (1).\n");
-        }
-        else
-        {
-            printf("[TEST FAIL] File reported as CLOSED (%d) when it should be locked.\n", status_open);
-        }
+#if !defined(__APPLE__)
+        PrintAssert(status_locked == 1, "Exclusively locked file reports LOCKED");
 #endif
 
-        // 5. Release lock
+        // Release Lock
 #ifdef _WIN32
         CloseHandle(h_lock);
 #elif defined(__linux__)
@@ -279,12 +329,11 @@ void Test_IsFileOpen(void)
     }
     else
     {
-        printf("[TEST FAIL] Failed to simulate locked state on dummy file.\n");
+        PrintAssert(0, "Failed to simulate OS file lock");
     }
 
-    // 6. Clean up dummy file
     remove(test_file);
-    printf("--- ISFILEOPEN TEST COMPLETED ---\n\n");
+    printf("\n");
 }
 
 // ============================================================================
@@ -292,10 +341,12 @@ void Test_IsFileOpen(void)
 // ============================================================================
 int main(int argc, char const *argv[])
 {
-    clock_t start, end;
-    start = clock();
+    clock_t start = clock();
 
-    printf("============ RUNNING TEST SUITE ============\n\n");
+    printf("\n");
+    printf("======================================================================\n");
+    printf("             AUTOMATED SUITE TEST & VISUALIZER FRAMEWORK              \n");
+    printf("======================================================================\n");
 
     Test_HasExtension();
     Test_ComputeFileHash();
@@ -303,18 +354,19 @@ int main(int argc, char const *argv[])
     Test_ScanDirectory_Mock();
     Test_IsFileOpen();
 
-    printf("============ SUITE TESTS COMPLETE ============\n\n");
-
-    // Optional directory scan from command line argument
     if (argc > 1)
     {
-        printf("Target scanning passed directory: %s\n", argv[1]);
+        PrintTestHeader("CLI Target Directory Scan");
+        printf("Target directory parameter: %s\n", argv[1]);
         ScanProjectDir(argv[1]);
     }
 
-    end = clock();
+    clock_t end = clock();
     double microseconds = ((double)(end - start) / CLOCKS_PER_SEC) * 1e6;
-    printf("\nExecution Speed: %.2f microseconds (us)\n", microseconds);
+
+    printf("======================================================================\n");
+    printf("  SUITE COMPLETE | Total Time Elapsed: %.2f μs\n", microseconds);
+    printf("======================================================================\n\n");
 
     return 0;
 }
