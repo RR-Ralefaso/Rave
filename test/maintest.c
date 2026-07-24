@@ -71,7 +71,10 @@ int main(int argc, char const *argv[])
         //see i clean up after myself do the same
         free(hash);
     }
-    printf("error: failed to allocate hash \n\n");
+    else
+    {
+        printf("error: failed to allocate hash \n\n");
+    }
     //===========================TREE=========================
 
     printf("Actual Tree Traversal:\n");
