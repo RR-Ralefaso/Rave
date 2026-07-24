@@ -1,18 +1,16 @@
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.28)
 project(RAVE_TEST C)
 
-# Set C standard
-set(CMAKE_C_STANDARD 11)
+# Set the standard to C23
+set(CMAKE_C_STANDARD 23)
 set(CMAKE_C_STANDARD_REQUIRED ON)
+set(CMAKE_C_EXTENSIONS ON) # Optional: Enforces strict C23 standard compliance without compiler extensions
 
-# Include directories (-Iinclude)
-include_directories(include)
-
-# Find required libraries (-lz -lcrypto)
+# Find required dependencies
 find_package(ZLIB REQUIRED)
 find_package(OpenSSL REQUIRED)
 
-# Define source files
+# Collect source files
 set(SOURCES
     test/maintest.c
     src/structures/structures.c
@@ -25,10 +23,13 @@ set(SOURCES
     src/storage/object.c
 )
 
-# Define executable
+# Define executable target
 add_executable(test ${SOURCES})
 
-# Link libraries
+# Modern target-scoped include directories
+target_include_directories(test PRIVATE include)
+
+# Link imported library targets
 target_link_libraries(test PRIVATE 
     ZLIB::ZLIB 
     OpenSSL::Crypto
