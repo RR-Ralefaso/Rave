@@ -23,7 +23,7 @@
      if (!file)
      {
         // the file didnt open -> bad so error
-        perror("Error : failed to open the file\n");
+        fprintf(stderr,"Error : failed to open the file\n");
         return NULL;
      }
 
