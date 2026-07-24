@@ -4,7 +4,7 @@
 
 - **Overview:** An open-source, experimental Version Control System (VCS) built from the ground up.
 - **Language:** C
-- **Author:** [github.com/RR-Ralefaso](https://github.com/RR-Ralefaso)
+- **Author:** [RR-Ralefaso(polaris)](https://github.com/RR-Ralefaso)
 
 ---
 
