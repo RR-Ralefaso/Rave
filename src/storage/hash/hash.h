@@ -6,5 +6,7 @@
 //reads 8kb of data at a time
 #define BUFFER_SIZE 8129
 
+//prototpe function
+char *ComputeFile_sha256(const char *filepath);
 
 #endif
