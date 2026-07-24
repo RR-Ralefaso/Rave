@@ -6,5 +6,6 @@
 
 
 //--Protype functions
+void ScanProjectDir(const char *dir_path);
 
 #endif
