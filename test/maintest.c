@@ -206,6 +206,8 @@ void Test_TreeAndCommits(void)
     PrintAssert(feat_buttons->data->top == 0, "Feature UI Buttons branch contains 1 commit");
     PrintAssert(hotfix->data->top == -1, "Hotfix branch initialized with 0 commits");
 
+    VisualiseTree(root);
+
     FreeTree(root);
 }
 
