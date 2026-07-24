@@ -16,4 +16,7 @@ void TraversePostOrder(TreeNode *root);
 // --finding  a certain node based of its name--
 bool Find(TreeNode *root, char *target);
 
+// --visualise trees --
+void VisualiseTree(TreeNode *root);
+static void VisualiseTreeHelper(TreeNode *root, char *prefix, bool isLeft);
 #endif
