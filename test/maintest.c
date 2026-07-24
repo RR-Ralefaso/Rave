@@ -6,6 +6,7 @@
 #include "../src/branch/branches.h"
 #include "../src/commits/commits.h"
 #include "../src/branch/merge/merge.h"
+#include "../src/storage/hash/hash.h"
 
 int main(int argc, char const *argv[])
 {
@@ -55,8 +56,22 @@ int main(int argc, char const *argv[])
         branches : root , childL1
     */
 
-    MergeBranches(root, childL1);
+    //MergeBranches(root, childL1);
 
+
+
+    //===========================TESTING HASHING==============
+    if(argc<2){
+        printf("usage: %s <path to file>\n", argv[0]);
+    }
+    char *hash = ComputeFile_sha256(argv[1]);
+    if (hash)
+    {
+        printf("file hash (sha_256) : %s\n", hash);
+        //see i clean up after myself do the same
+        free(hash);
+    }
+    printf("error: failed to allocate hash \n\n");
     //===========================TREE=========================
 
     printf("Actual Tree Traversal:\n");
