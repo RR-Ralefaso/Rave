@@ -3,7 +3,7 @@
 ## About
 
 - **Overview:** An open-source, experimental Version Control System (VCS) built from the ground up.
-- **Language:** C 
+- **Language:** C
 - **Author:** [github.com/RR-Ralefaso](https://github.com/RR-Ralefaso)
 
 ---
@@ -267,7 +267,7 @@ Examples:
 
 # Build & Run Instructions (DO NOT RUN ANY OF THESE YET)
 
-## Running Tests 
+## Running Tests
 
 ```bash
 mkdir -p build
@@ -312,7 +312,9 @@ gcc -g main.c \
 ```
 
 ---
+
 ## Running Using the Cmake
+
 ```bash
 
 # Configure and create build folder
@@ -325,10 +327,8 @@ cmake --build build
 ./build/test
 
 ```
+
 ---
-
-
-
 
 # Developer Roadmap
 
