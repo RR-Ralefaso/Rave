@@ -1,10 +1,10 @@
-cmake_minimum_required(VERSION 3.28)
-project(RAVE_TEST C)
+cmake_minimum_required(VERSION 3.10)
+project(RAVE_TESTC)
 
 # Set the standard to C23
 set(CMAKE_C_STANDARD 23)
 set(CMAKE_C_STANDARD_REQUIRED ON)
-set(CMAKE_C_EXTENSIONS ON) # Optional: Enforces strict C23 standard compliance without compiler extensions
+set(CMAKE_C_EXTENSIONS OFF) # Optional: Enforces strict C23 standard compliance without compiler extensions
 
 # Find required dependencies
 find_package(ZLIB REQUIRED)
