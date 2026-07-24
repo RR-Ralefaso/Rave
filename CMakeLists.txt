@@ -16,6 +16,7 @@ set(SOURCES
     src/structures/structures.c
     src/structures/structure_traversal/StructureTraversal.c
     src/branch/branches.c
+    src/checker/checks.c
     src/branch/merge/merge.c
     src/commits/commits.c
     src/storage/hash/hash.c
