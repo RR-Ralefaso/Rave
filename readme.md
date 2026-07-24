@@ -313,7 +313,7 @@ gcc -g main.c \
 
 ---
 
-## Running Using the Cmake
+## Running Using the Cmake for the test
 
 ```bash
 
