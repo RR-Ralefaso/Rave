@@ -18,7 +18,7 @@
 
 ## Purpose & Goals
 
-- **Learning:** Deepen understanding of low-level systems programming, memory management, and tree structures in C/C++.
+- **Learning:** Deepen understanding of low-level systems programming, memory management, and tree structures in C.
 - **Customization:** Provide an extensible base where developers can easily experiment with and add non-traditional VCS features.
 - **Fun:** Build a functional core tool from scratch for the joy of building.
 
