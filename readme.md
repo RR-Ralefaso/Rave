@@ -278,9 +278,9 @@ gcc test/maintest.c \
     src/branch/branches.c \
     src/branch/merge/merge.c \
     src/commits/commits.c \
-    src/storage/hash.c \
-    src/storage/compress.c \
-    src/storage/object.c \
+    src/storage/hash/hash.c \
+    src/storage/compress/compress.c \
+    src/storage/object/object.c \
     -Iinclude \
     -lz -lcrypto \
     -o build/test
@@ -300,9 +300,9 @@ gcc -g main.c \
     src/structures/structure_traversal/StructureTraversal.c \
     src/branch/branches.c \
     src/commits/commits.c \
-    src/storage/hash.c \
-    src/storage/compress.c \
-    src/storage/object.c \
+    src/storage/hash/hash.c \
+    src/storage/compress/compress.c \
+    src/storage/object/object.c \
     -Iinclude \
     -lz -lcrypto \
     -o build/main
