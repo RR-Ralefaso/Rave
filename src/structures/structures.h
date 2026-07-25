@@ -14,6 +14,7 @@ typedef struct Node
 // branch
 typedef struct BranchStack
 {
+    // TODO : CREATE IDENTITIES FOR COMMITS
     Node *arr; // pointer to dynamic array --check
     int top;      // index of the top element
     int capacity; // current maximum size
