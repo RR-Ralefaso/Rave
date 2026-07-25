@@ -19,7 +19,6 @@ TreeNode *CreateChild(TreeNode *root, char *childname)
         perror("Error: The VCS hasn't been initialized\n");
         return NULL;
     }
-
     // Check if the input name is valid
     if (childname == NULL || childname[0] == '\0')
     {
@@ -41,7 +40,6 @@ TreeNode *CreateChild(TreeNode *root, char *childname)
         free(child->identity);
         child->identity = NULL;
     }
-
     int total_len;
     // Generate hierarchical name path if parent identity exists
     if (strlen(parent_id) > 0)
@@ -67,21 +65,18 @@ TreeNode *CreateChild(TreeNode *root, char *childname)
         }
         snprintf(child->identity, total_len, "%s", childname);
     }
-
     // Insert as left child if parent has no children yet
     if (root->left == NULL)
     {
         root->left = child;
         return child;
     }
-
     // Traverse the sibling chain to find the last child
     TreeNode *current = root->left;
     while (current->right != NULL)
     {
         current = current->right;
     }
-
     // Attach new child to the end of the sibling chain
     current->right = child;
     return child;
@@ -107,7 +102,6 @@ TreeNode *CreateBranchBasedOfRoot(TreeNode *root, char *branchbeingcreated)
         perror("Error: VCS system has not been initialised\n");
         return NULL;
     }
-
     // Inspect the root node to determine if any branch history or lineage already exists.
     // The HasChild function checks whether the root possesses an active left-child pointer.
     if (!HasChild(root))
@@ -129,7 +123,6 @@ TreeNode *CreateBranchBasedOfRoot(TreeNode *root, char *branchbeingcreated)
         // adopting naming attributes downstream.
         return CreateChild(root->left, branchbeingcreated);
     }
-
     // Fallback safety return statement to satisfy compiler layout requirements in the
     // event that control flow unexpectedly escapes the primary conditional code blocks.
     return NULL;
