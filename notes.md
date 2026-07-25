@@ -1,6 +1,5 @@
 # NOTES ON WHAT I NEED TO DO
 
-
 ## Tasks
 
     [] add identities for commits
@@ -14,8 +13,6 @@
     [] structures 
     [] commits
 
-
 ---
 
 ## features suggested
-
