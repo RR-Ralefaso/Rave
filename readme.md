@@ -137,30 +137,16 @@ RAVE/
 **Location**
 
 ```text
-src/storage/hash.c
-src/storage/compress.c
+src/storage/hash/hash.c
+src/storage/compress/compress.c
 ```
 
 **Tasks**
 
 - Build:
 
-```c
-hash_buffer(const unsigned char *input, size_t len, char *out_hash)
-```
-
-- Build:
-
-```c
-compress_buffer(
-    const unsigned char *src,
-    size_t src_len,
-    unsigned char **dest,
-    size_t *dest_len
-)
-```
-
-using zlib.
+    using zlib for compression
+    using openssl for hashing
 
 ---
 
