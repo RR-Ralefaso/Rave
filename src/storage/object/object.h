@@ -7,4 +7,3 @@
 
 
 //prototype functions
-static int CreateDirectoryPath(const char *path);
