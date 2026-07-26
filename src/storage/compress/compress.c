@@ -6,7 +6,6 @@
 
 //compressing a file using raw deflate 
 //may not be thoughout using stackoverflow for help
-
 int compress_file_raw(FILE *source, FILE *dest)
 {
     int ret, flush;
