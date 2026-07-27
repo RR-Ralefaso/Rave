@@ -7,3 +7,5 @@
 
 
 //prototype functions
+void WriteObject(const unsigned char *data, size_t len, const char *type);
+void ReadObject(const char *hash);
