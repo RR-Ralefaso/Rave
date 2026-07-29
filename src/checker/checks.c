@@ -186,3 +186,6 @@ void ScanProjectDir(const char *dir_path) {
 /*
     TODO : write DirExists
 */
+
+// return 0 if the directory exists and -1 if it doesnt
+int DirExists(const char *dir_path) {}
