@@ -303,8 +303,11 @@ gcc -g main.c \
 
 ```bash
 
+# delete previous build config
+rm -rf build
 # Configure and create build folder
 cmake -B build
+
 
 # Compile the executable
 cmake --build build
