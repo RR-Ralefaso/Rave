@@ -226,3 +226,14 @@ int ParentDirExists(const char *dir_path) {
   closedir(dir);
   return 0;
 }
+
+void PrintCurrentDirectory() {
+  char cwd[1024];
+
+  // getcwd returns NULL if it fails (e.g., buffer is too small)
+  if (getcwd(cwd, sizeof(cwd)) != NULL) {
+    printf("Current working directory: %s\n", cwd);
+  } else {
+    perror("getcwd() error");
+  }
+}

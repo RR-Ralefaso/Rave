@@ -26,4 +26,7 @@ void ScanProjectDir(const char *dir_path);
 // checks to see if the parent directory exists
 int ParentDirExists(const char *dir_path);
 
+// checks to see which Directory you currently in
+void PrintCurrentDirectory();
+
 #endif
