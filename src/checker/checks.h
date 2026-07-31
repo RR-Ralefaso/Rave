@@ -23,4 +23,7 @@ int HasExtension(const char *filename, const char *ext);
 // scans the directory recursively
 void ScanProjectDir(const char *dir_path);
 
+// checks to see if the parent directory exists
+int ParentDirExists(const char *dir_path);
+
 #endif

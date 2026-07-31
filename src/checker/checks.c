@@ -183,22 +183,46 @@ void ScanProjectDir(const char *dir_path) {
   closedir(dir);
 }
 
-/*
-    TODO : write DirExists
-*/
-
-// return 0 if the directory exists and -1 if it doesnt
-int DirExists(const char *dir_path) {
-
-  DIR *dir = opendir(dir_path);
-
-  // error checking
-  if (!dir) {
-    printf(stderr, "Error : directory doesnt exist\n");
+// return 0 if the parent directory exists and -1 if it doesnt
+int ParentDirExists(const char *dir_path) {
+  if (!dir_path || *dir_path == '\0') {
     return -1;
   }
 
+  // mutable copy of the path
+  char temp_path[1024];
+  if (strlen(dir_path) >= sizeof(temp_path)) {
+    fprintf(stderr, "Error: Path is too long\n");
+    return -1;
+  }
+  strcpy(temp_path, dir_path);
 
+  // Find the last directory separator (supporting both Linux '/' and Windows
+  // '\')
+  char *last_slash = strrchr(temp_path, '/');
+  char *last_backslash = strrchr(temp_path, '\\');
 
-  return -1;
+  char *target_slash =
+      (last_slash > last_backslash) ? last_slash : last_backslash;
+
+  if (!target_slash) {
+    // No slash found; parent is the current working directory
+    strcpy(temp_path, ".");
+  } else if (target_slash == temp_path) {
+    // Parent is the root directory
+    target_slash[1] = '\0';
+  } else {
+    // Truncate at the last slash to isolate the parent directory
+    *target_slash = '\0';
+  }
+
+  // Check if the parent directory exists
+  DIR *dir = opendir(temp_path);
+  if (!dir) {
+    fprintf(stderr, "Error: Parent directory does not exist\n");
+    return -1;
+  }
+
+  closedir(dir);
+  return 0;
 }
