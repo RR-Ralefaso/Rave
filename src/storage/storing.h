@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+//==========================================prototype functions====================================
 
-//prototype functions
-
+// creates a directory
 static int CreateDirectory(const char *path);
