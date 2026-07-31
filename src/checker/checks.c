@@ -188,4 +188,17 @@ void ScanProjectDir(const char *dir_path) {
 */
 
 // return 0 if the directory exists and -1 if it doesnt
-int DirExists(const char *dir_path) {}
+int DirExists(const char *dir_path) {
+
+  DIR *dir = opendir(dir_path);
+
+  // error checking
+  if (!dir) {
+    printf(stderr, "Error : directory doesnt exist\n");
+    return -1;
+  }
+
+
+
+  return -1;
+}
