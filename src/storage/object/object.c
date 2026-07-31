@@ -1,9 +1,14 @@
+// its header file
 #include "object.h"
+// will be used to store
 #include "../storing.h"
 #include <stdio.h>
 #include <stdlib.h>
+// using strings
 #include <string.h>
 #include <sys/types.h>
+// does a lot of direcotry checks
+#include "../../checker/checks.h"
 
 // Writing the objects
 
@@ -15,9 +20,15 @@ void WriteObject(const unsigned char *data, size_t len, const char *type) {
     return;
   }
 
-  /*
-      TODO : use a function called DirExists to see if the directory exists
-  */
+  // locking to see which directory we in
+  // debugging purposes should comment out later
+  char *whichdirectory_path = GetCurrentDirectory();
+  if (whichdirectory_path == NULL) {
+    fprintf(stderr, "Error\n");
+    return;
+  } else {
+    printf("Current path : %s\n", whichdirectory_path);
+  }
 }
 
 // reading the object
