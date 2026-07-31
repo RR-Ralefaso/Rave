@@ -26,7 +26,9 @@ void ScanProjectDir(const char *dir_path);
 // checks to see if the parent directory exists
 int ParentDirExists(const char *dir_path);
 
-// checks to see which Directory you currently in
-void PrintCurrentDirectory();
-
+/*checks to see which Directory you currently in
+ *   Returns a dynamically allocated string with the current directory,
+ * or NULL on failure. The caller is responsible for free()ing the result.
+ */
+char *GetCurrentDirectory();
 #endif

@@ -227,13 +227,22 @@ int ParentDirExists(const char *dir_path) {
   return 0;
 }
 
-void PrintCurrentDirectory() {
-  char cwd[1024];
+// Returns a dynamically allocated string with the current directory, 
+// or NULL on failure. The caller is responsible for free()ing the result.
+char* GetCurrentDirectory()
+ {
+    // Allocate a buffer for the path
+    char *cwd = malloc(1024);
+    if (!cwd) {
+        perror("malloc() error");
+        return NULL;
+    }
 
-  // getcwd returns NULL if it fails (e.g., buffer is too small)
-  if (getcwd(cwd, sizeof(cwd)) != NULL) {
-    printf("Current working directory: %s\n", cwd);
-  } else {
-    perror("getcwd() error");
-  }
+    if (getcwd(cwd, 1024) != NULL) {
+        return cwd;
+    } else {
+        perror("getcwd() error");
+        free(cwd);
+        return NULL;
+    }
 }
