@@ -86,14 +86,17 @@ void WriteObject(const unsigned char *data, size_t len, const char *type) {
 
   // ---> USES COMPRESS.C: Compress using compress_file_raw <---
   int ret = compress_file_raw(source, dest);
-  
+
   // Cleanup streams and buffers
   fclose(source);
   fclose(dest);
   free(store_buffer);
 
   if (ret != Z_OK) {
-    fprintf(stderr, "Error: Failed to compress object data using raw deflate (code %d)\n", ret);
+    fprintf(
+        stderr,
+        "Error: Failed to compress object data using raw deflate (code %d)\n",
+        ret);
     free(hash_hex);
     return;
   }
@@ -151,7 +154,8 @@ void ReadObject(const char *hash) {
   }
 
   // Dynamically grow uncompressed buffer as needed
-  size_t uncompressed_capacity = compressed_size * 4 > 1024 ? compressed_size * 4 : 1024;
+  size_t uncompressed_capacity =
+      compressed_size * 4 > 1024 ? compressed_size * 4 : 1024;
   unsigned char *uncompressed_data = malloc(uncompressed_capacity);
   size_t total_uncompressed_len = 0;
   int ret;
@@ -189,7 +193,8 @@ void ReadObject(const char *hash) {
 
   inflateEnd(&strm);
 
-  printf("Successfully read object: %s (Size: %zu bytes)\n", hash, total_uncompressed_len);
+  printf("Successfully read object: %s (Size: %zu bytes)\n", hash,
+         total_uncompressed_len);
 
   // Cleanup
   free(compressed_data);
