@@ -10,6 +10,6 @@
 #define CHUNK_SIZE 16384
 
 //prototype functions
-int CompressFileRaw(FILE *source, FILE *destination);
+int compress_file_raw(FILE *source, FILE *dest);
 
 #endif
